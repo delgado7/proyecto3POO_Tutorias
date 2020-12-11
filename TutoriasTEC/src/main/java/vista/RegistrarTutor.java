@@ -61,11 +61,11 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
         TextoContraseña.setBounds(100, 170, 150, 30);
         TextoModalidad.setBounds(100, 210, 150, 30);
         TextoTutoria.setBounds(100, 250, 150, 30);
-        TextFieldNombre.setBounds(300, 90, 150, 30);
-        TextFieldCorreo.setBounds(300, 130, 150, 30);
-        TextFieldContraseña.setBounds(300, 170, 150, 30);
-        ComboBoxModalidades.setBounds(300, 210, 150, 30);
-        ComboBoxTutorias.setBounds(300, 250, 150, 30);
+        TextFieldNombre.setBounds(300, 90, 200, 30);
+        TextFieldCorreo.setBounds(300, 130, 200, 30);
+        TextFieldContraseña.setBounds(300, 170, 200, 30);
+        ComboBoxModalidades.setBounds(300, 210, 200, 30);
+        ComboBoxTutorias.setBounds(300, 250, 200, 30);
     }
     public void addComponentsToContainer()
     {

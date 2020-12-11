@@ -25,6 +25,7 @@ public class Inicio {
     static InicioAdmin frameInicioAdmin;
     static RegistrarTutor frameRegistrarTutor;
     static RevisarEstadisticas frameRevisarEstadisticas;
+    static HabilitarAula frameHabilitarAula;
 
     public static void center(JFrame J) {
         J.setLocation(dim.width / 2 - J.getSize().width / 2, dim.height / 2 - J.getSize().height / 2);
@@ -58,11 +59,21 @@ public class Inicio {
         frameRevisarEstadisticas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRevisarEstadisticas.setResizable(false);
     }
+    
+    public static void VentanaHabilitarAula(boolean visibilidad)
+    {
+        frameHabilitarAula.setVisible(visibilidad);
+        frameHabilitarAula.setBounds(560, 140, 600, 400);
+        center(frameHabilitarAula);
+        frameHabilitarAula.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameHabilitarAula.setResizable(false);
+    }
 
     public static void main(String[] args) {
         frameInicioAdmin = new InicioAdmin();
         frameRegistrarTutor = new RegistrarTutor();
         frameRevisarEstadisticas = new RevisarEstadisticas();
-        VentanaRegistrarTutor(true);
+        frameHabilitarAula = new HabilitarAula();
+        VentanaInicioAdmin(true);
     }
 }

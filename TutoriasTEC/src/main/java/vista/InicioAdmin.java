@@ -64,11 +64,12 @@ public final class InicioAdmin extends JFrame implements ActionListener{
     {
 
         if (e.getSource() == botonCerrarSesion) {
-            Inicio.VentanaInicioAdmin(false);
+            //Inicio.VentanaInicioAdmin(false);
         }
         if(e.getSource() == botonHabilitarAula)
         {
-
+            Inicio.VentanaInicioAdmin(false);
+            Inicio.VentanaHabilitarAula(true);
         }
         if(e.getSource() == botonRegistrarTutor)
         {
@@ -77,6 +78,7 @@ public final class InicioAdmin extends JFrame implements ActionListener{
         }
         if(e.getSource() == botonRevisarEstadisticas)
         {
+            Inicio.VentanaInicioAdmin(false);
             Inicio.VentanaRevisarEstadisticas(true);
         }
     }    
