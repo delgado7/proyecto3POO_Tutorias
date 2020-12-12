@@ -20,7 +20,7 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     JButton botonRegistrarTutor = new JButton("Registrar Tutor");
     
     String[] modalidades = {null, "Virtual", "Presencial"};
-    String[] tutorias = {null};
+    String[] tutorias = {null, "Matemática Discreta", "Matemática General"};
     JComboBox<String> ComboBoxModalidades = new JComboBox<>(modalidades);
     JComboBox<String> ComboBoxTutorias = new JComboBox<>(tutorias);
 
@@ -96,7 +96,18 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
         }
         if(e.getSource() == botonRegistrarTutor)
         {
-
+            if(ComboBoxModalidades.getSelectedItem() == null || ComboBoxTutorias.getSelectedItem() == null 
+               || TextFieldNombre.getText().equals("") || TextFieldCorreo.getText().equals("") || 
+               TextFieldContraseña.getText().equals(""))
+                
+            {
+                JOptionPane.showMessageDialog(this, "No se aceptan espacios vacíos.");
+            }
+            else
+            {
+                Inicio.VentanaRegistrarTutor(false);
+                Inicio.VentanaInicioAdmin(true);
+            }
         }
     }    
 }
