@@ -5,6 +5,7 @@
  */
 package vista;
 
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,9 +13,13 @@ import javax.swing.JOptionPane;
  * @author Silvia Rodriguez
  */
 public class RevisarEstadisticas extends javax.swing.JFrame {
-    String[] mate = {null, "Matemática General", "Matemática Discreta"};
-    String[] fisica = {null, "Física I", "Física II"};
-    String[] quimica = {null, "Química I", "Química II"};
+    String[] materiasDisponibles = {null, "Matemática", "Física", "Química"};
+    static String[] opcionesMate = {null, "Matemática General", "Matemática Discreta"};
+    static String[] opcionesFisica = {null, "Física I", "Física II"};
+    static String[] opcionesQuimica = {null, "Química I", "Química II"};
+    static HashMap<String, String[]> Materias = new HashMap<>();
+    
+    
     /**
      * Creates new form RevisarEstadisticas
      */
@@ -67,14 +72,14 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {null, "Matemática", "Física", "Química" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(materiasDisponibles));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
             }
         });
 
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null , "materia"}));
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] {null}));
         jComboBox2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox2ActionPerformed(evt);
@@ -113,7 +118,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
                     .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(35, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -127,6 +132,10 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -138,7 +147,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jButton2))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
@@ -150,12 +159,13 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
                                     .addComponent(jLabel4)
                                     .addComponent(jLabel5))
                                 .addGap(33, 33, 33)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 150, Short.MAX_VALUE)
-                                    .addComponent(jComboBox3, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox4, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(43, 43, 43)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jComboBox1, 0, 131, Short.MAX_VALUE)
+                                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGap(19, 19, 19)))
+                        .addGap(51, 51, 51)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(21, 21, 21))
         );
@@ -211,26 +221,17 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         if(jComboBox1.getSelectedItem() == null || jComboBox2.getSelectedItem() == null ||
-                jComboBox3.getSelectedItem() == null || jComboBox4.getSelectedItem() == null)
+            jComboBox3.getSelectedItem() == null || jComboBox4.getSelectedItem() == null)
         {
             JOptionPane.showMessageDialog(this, "No se aceptan espacios vacíos.");
         }
         else
         {
-            Inicio.VentanaRevisarEstadisticas(false);
-            Inicio.VentanaInicioAdmin(true);
+            jLabel6.setVisible(true);
+            jLabel7.setVisible(true);
+            jLabel8.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-        Inicio.VentanaRegistrarTutor(false);
-        Inicio.VentanaInicioAdmin(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
@@ -238,20 +239,30 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here
+
+    }//GEN-LAST:event_jComboBox2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
         if(jComboBox1.getSelectedItem() == "Matemática")
         {
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(mate));
+            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesMate));
         }
         else if(jComboBox1.getSelectedItem() == "Física")
         {
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(fisica));
+            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesFisica));
         }
         else if(jComboBox1.getSelectedItem() == "Química")
         {
-                jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(quimica));
+            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesQuimica));
         }
-        
-    }//GEN-LAST:event_jComboBox2ActionPerformed
+    }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        Inicio.VentanaRegistrarTutor(false);
+        Inicio.VentanaInicioAdmin(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -281,9 +292,23 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        Materias.put("Matemática", opcionesMate);
+        Materias.put("Química", opcionesQuimica);
+        Materias.put("Física", opcionesFisica);
+        
+        
+                
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RevisarEstadisticas().setVisible(true);
+                
+                
+                /*jLabel6.setVisible(false);
+                jLabel7.setVisible(false);
+                jLabel8.setVisible(false);
+                jLabel6.setEnabled(false);
+                jLabel7.setEnabled(false);
+                jLabel8.setEnabled(false);*/
             }
         });
     }
@@ -291,7 +316,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    public javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
@@ -306,4 +331,5 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
+
 }

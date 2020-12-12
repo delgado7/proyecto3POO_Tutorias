@@ -149,10 +149,16 @@ public class HabilitarAula extends javax.swing.JFrame {
         {
             JOptionPane.showMessageDialog(this, "No se aceptan espacios vacíos.");
         }
+        else if(jDateChooser1.getCalendar().compareTo(jDateChooser2.getCalendar()) == 1)
+        {
+            JOptionPane.showMessageDialog(this, "La fecha de inicio debe ser anterior o igual a la de finalización.");
+        }
         else
         {
-            Inicio.VentanaHabilitarAula(false);
-            Inicio.VentanaInicioAdmin(true);
+            jComboBox1.setSelectedIndex(0);
+            jDateChooser1.setCalendar(null);
+            jDateChooser2.setCalendar(null);
+            JOptionPane.showMessageDialog(this, "El aula se ha habilitado con éxito.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
 

@@ -105,8 +105,12 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
             }
             else
             {
-                Inicio.VentanaRegistrarTutor(false);
-                Inicio.VentanaInicioAdmin(true);
+                ComboBoxModalidades.setSelectedIndex(0);
+                ComboBoxTutorias.setSelectedIndex(0);
+                TextFieldNombre.setText("");
+                TextFieldCorreo.setText("");
+                TextFieldContraseña.setText("");
+                JOptionPane.showMessageDialog(this, "El tutor se ha agregado con éxito.");
             }
         }
     }    
