@@ -5,6 +5,9 @@
  */
 package vista;
 
+import com.toedter.calendar.JCalendar;
+import java.util.Calendar;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -144,10 +147,17 @@ public class HabilitarAula extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        Calendar hoy = Calendar.getInstance();
+        hoy.set(Calendar.DAY_OF_YEAR, hoy.get(Calendar.DAY_OF_YEAR)-1);
         if(jComboBox1.getSelectedItem() == null || jDateChooser1.getCalendar() == null ||
                 jDateChooser2.getCalendar() == null)
         {
             JOptionPane.showMessageDialog(this, "No se aceptan espacios vacíos.");
+        }
+        else if(jDateChooser1.getJCalendar().getDate().before(hoy.getTime()) ||
+                jDateChooser2.getJCalendar().getDate().before(hoy.getTime()))
+        {
+            JOptionPane.showMessageDialog(this, "No se permite habilitar un aula en fechas pasadas.");
         }
         else if(jDateChooser1.getCalendar().compareTo(jDateChooser2.getCalendar()) == 1)
         {
@@ -190,6 +200,8 @@ public class HabilitarAula extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
+        jDateChooser1.getJCalendar().setMinSelectableDate(new Date());
+        jDateChooser2.getJCalendar().setMinSelectableDate(new Date());
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new HabilitarAula().setVisible(true);
@@ -201,8 +213,8 @@ public class HabilitarAula extends javax.swing.JFrame {
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JComboBox<String> jComboBox1;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    private static com.toedter.calendar.JDateChooser jDateChooser1;
+    private static com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
