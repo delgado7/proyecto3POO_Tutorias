@@ -17,6 +17,12 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
     static String[] opcionesMate = {null, "Matemática General", "Matemática Discreta"};
     static String[] opcionesFisica = {null, "Física I", "Física II"};
     static String[] opcionesQuimica = {null, "Química I", "Química II"};
+    static String[] tutoriasFisica1 = {null, "Fisica I 40", "Fisica I 41"};
+    static String[] tutoriasFisica2 = {null, "Fisica II 40", "Fisica II 41"};
+    static String[] tutoriasQuimica1 = {null, "Quimica I 40", "Quimica I 41"};
+    static String[] tutoriasQuimica2 = {null, "Quimica II 40", "Quimica II 41"};
+    static String[] tutoriasMG = {null, "MG 40", "MG 41"};
+    static String[] tutoriasMD = {null, "MD 40", "MD 41"};
     static HashMap<String, String[]> Materias = new HashMap<>();
     
     
@@ -93,7 +99,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
             }
         });
 
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null, "MD 30", "MG 25", "CDI 40" }));
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null }));
 
         jButton1.setText("Confirmar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -239,6 +245,30 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here
+        if(jComboBox2.getSelectedItem() == "Física I")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasFisica1));
+        }
+        else if(jComboBox2.getSelectedItem() == "Física II")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasFisica2));
+        }
+        else if(jComboBox2.getSelectedItem() == "Química I")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasQuimica1));
+        }
+        else if(jComboBox2.getSelectedItem() == "Química II")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasQuimica2));
+        }
+        else if(jComboBox2.getSelectedItem() == "Matemática General")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasMG));
+        }
+        else if(jComboBox2.getSelectedItem() == "Matemática Discreta")
+        {
+            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasMD));
+        }
 
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
@@ -260,6 +290,13 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
+        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        jComboBox1.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
+        jComboBox3.setSelectedIndex(0);
+        jComboBox4.setSelectedIndex(0);
         Inicio.VentanaRegistrarTutor(false);
         Inicio.VentanaInicioAdmin(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -301,14 +338,6 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new RevisarEstadisticas().setVisible(true);
-                
-                
-                /*jLabel6.setVisible(false);
-                jLabel7.setVisible(false);
-                jLabel8.setVisible(false);
-                jLabel6.setEnabled(false);
-                jLabel7.setEnabled(false);
-                jLabel8.setEnabled(false);*/
             }
         });
     }
@@ -316,20 +345,20 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JComboBox<String> jComboBox1;
+    public javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
+    private static javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
+    private static javax.swing.JLabel jLabel6;
+    private static javax.swing.JLabel jLabel7;
+    private static javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
+    private static javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables
 
 }
