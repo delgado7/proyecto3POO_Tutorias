@@ -63,7 +63,7 @@ public final class InicioTutor extends JFrame implements ActionListener {
             Inicio.VentanaAsistenciaTutoria(true);
             Inicio.VentanaInicioTutor(false);
         } else if (botonTutoria.equals(source)) {
-            System.out.println("Tercer case");
+            Inicio.VentanaHabilitarTutoria(true);
             Inicio.VentanaInicioTutor(false);
         }
     }

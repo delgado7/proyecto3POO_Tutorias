@@ -10,6 +10,7 @@ import static vista.Inicio.VentanaInicioTutor;
 import static vista.Inicio.frameInicioTutor;
 import static vista.Inicio.frameAsistenciaTutoria;
 import static vista.Inicio.frameAsistenciaLista;
+import static vista.Inicio.frameHabilitarTutoria;
 
 /**
  *
@@ -21,6 +22,7 @@ public class main {
         frameInicioTutor = new InicioTutor();
         frameAsistenciaTutoria = new AsistenciaTutoria();
         frameAsistenciaLista = new AsistenciaLista();
+        frameHabilitarTutoria = new HabilitarTutoria();
         VentanaInicioTutor(true);
     }
 }

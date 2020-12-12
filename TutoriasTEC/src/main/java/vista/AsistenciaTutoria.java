@@ -68,12 +68,16 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
         opcionesSesion.addActionListener(this);
     }
     
+    public void limpiarCampos() {
+        opcionesTutoria.setSelectedIndex(0);
+        opcionesSesion.setSelectedIndex(0);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
-            opcionesTutoria.setSelectedIndex(0);
-            opcionesSesion.setSelectedIndex(0);
+            limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaAsistenciaTutoria(false);
         } else if(opcionesTutoria.equals(source)){
@@ -86,6 +90,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
             if(nombreTutoria.equals("") || nombreSesion.equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una tutoría y una sesión.");
             } else {
+                limpiarCampos();
                 Inicio.VentanaAsistenciaLista(true);
                 Inicio.VentanaAsistenciaTutoria(false);
             }

@@ -20,6 +20,7 @@ public class Inicio {
     static InicioTutor frameInicioTutor;
     static AsistenciaTutoria frameAsistenciaTutoria;
     static AsistenciaLista frameAsistenciaLista;
+    static HabilitarTutoria frameHabilitarTutoria;
     
     public static void VentanaInicioTutor(boolean visibilidad) {
         frameInicioTutor.setTitle("Tutorías TEC - Tutor");
@@ -52,6 +53,17 @@ public class Inicio {
         frameAsistenciaLista.getContentPane().setBackground(Color.white);
         frameAsistenciaLista.setIconImage(img.getImage());
         center(frameAsistenciaLista);
+    }
+    
+    public static void VentanaHabilitarTutoria(boolean visibilidad) {
+        frameHabilitarTutoria.setTitle("Tutorías TEC - Habilitar tutoría");
+        frameHabilitarTutoria.setVisible(visibilidad);
+        frameHabilitarTutoria.setBounds(560, 140, 600, 400);
+        frameHabilitarTutoria.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameHabilitarTutoria.setResizable(false);
+        frameHabilitarTutoria.getContentPane().setBackground(Color.white);
+        frameHabilitarTutoria.setIconImage(img.getImage());
+        center(frameHabilitarTutoria);
     }
     
     public static void center(JFrame J) {

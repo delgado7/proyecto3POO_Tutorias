@@ -75,14 +75,23 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
         }
     }
     
+    public void limpiarCampos() {
+        for(int i = 0; i < checkBoxList.size(); i++) {
+            JCheckBox estudiante = checkBoxList.get(i);
+            estudiante.setSelected(false);
+        }
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
+            limpiarCampos();
             Inicio.VentanaAsistenciaTutoria(true);
             Inicio.VentanaAsistenciaLista(false);
         }else if (botonConfirmar.equals(source)) {
             JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
+            limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaAsistenciaLista(false);
         } else {
@@ -90,6 +99,8 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
                 JCheckBox estudiante = checkBoxList.get(i);
                 if(estudiante.equals(source) && estudiante.isSelected()) {
                     checkBoxSelected.add(estudiante.getText());
+                } else if(estudiante.equals(source) && !estudiante.isSelected()) {
+                    checkBoxSelected.remove(i);
                 }
             }
         }
