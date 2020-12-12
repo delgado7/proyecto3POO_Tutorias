@@ -29,7 +29,7 @@ public abstract class Curso {
 
     public abstract int getSesionesTotales();
 
-    public abstract void registrarAsistencia(ArrayList<Estudiante> asistieron);
+    public abstract void registrarAsistencia(int asistenciaDeHoy);
 
     public abstract double getPorcentajeAsistencia();
 

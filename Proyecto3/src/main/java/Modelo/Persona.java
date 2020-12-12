@@ -10,8 +10,8 @@ package Modelo;
  * @author fabri
  */
 public class Persona {
-    private String nombre;
-    private String profesión;
+    protected String nombre;
+    protected String profesión;
 
     public Persona(String nombre, String profesión) {
         this.nombre = nombre;

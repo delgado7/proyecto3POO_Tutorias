@@ -1,0 +1,13 @@
+Modelo\Curso.class
+Vista\main.class
+Modelo\Estudiante.class
+Modelo\Tutoría.class
+Controlador\Administrador.class
+Controlador\Utilitaria.class
+Controlador\Controlador.class
+Modelo\ClassFullException.class
+Modelo\TModalidad.class
+Controlador\XMLParser.class
+Modelo\Persona.class
+Modelo\Tutor.class
+Modelo\Aula.class

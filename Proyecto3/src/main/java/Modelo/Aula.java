@@ -30,7 +30,11 @@ public class Aula {
         return Desde;
     }
 
-    private void setDesde(Calendar Desde) {
+    public void setReservada(boolean reservada) {
+        this.reservada = reservada;
+    }
+    
+    public void setDesde(Calendar Desde) {
         this.Desde = Desde;
     }
 
@@ -38,7 +42,7 @@ public class Aula {
         return Hasta;
     }
 
-    private void setHasta(Calendar Hasta) {
+    public void setHasta(Calendar Hasta) {
         this.Hasta = Hasta;
     }
 
@@ -51,7 +55,7 @@ public class Aula {
     }
 
     public boolean isReservada() {
-        return (0<=Hasta.compareTo(Calendar.getInstance()) && Desde.compareTo(Calendar.getInstance())<=0) || (0<=Hasta.compareTo(Calendar.getInstance()) && Hasta.compareTo(Calendar.getInstance())<=0) || (0<=Desde.compareTo(Calendar.getInstance()) && Desde.compareTo(Calendar.getInstance())<=0);
+        return this.reservada;
     }
 
     public void habilitarAula(Calendar desde, Calendar hasta){

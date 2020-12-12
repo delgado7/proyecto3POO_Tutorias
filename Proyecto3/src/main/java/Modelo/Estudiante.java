@@ -11,31 +11,46 @@ package Modelo;
  */
 public class Estudiante extends Persona{
     
-    private int carné = -1;
-    private final String correoEstudinatil;
+    private String carné;
+    private final String correoEstudiantil;
     private final String contraseña;
     private boolean isActive = false;
-    private Tutoría matriculadoEn;
+    private String matriculadoEn="";
 
-    public Estudiante(int carné, String correoEstudinatil, String contraseña, String nombre, String profesión) {
+    public Estudiante(String carné, String correoEstudinatil, String contraseña, String nombre, String profesión) {
         super(nombre, "Estudiante");
         this.carné = carné;
-        this.correoEstudinatil = correoEstudinatil;
+        this.correoEstudiantil = correoEstudinatil;
         this.contraseña = contraseña;
     }
     
     public Estudiante(String correoEstudinatil, String contraseña, String nombre) {
         super(nombre, "Estudiante");
-        this.correoEstudinatil = correoEstudinatil;
+        this.correoEstudiantil = correoEstudinatil;
         this.contraseña = contraseña;
     }
 
-    public int getCarné() {
+    public Estudiante(String carné, String correoEstudiantil, String contraseña, String matriculadoEn, String nombre, String profesión) {
+        super(nombre, profesión);
+        this.carné = carné;
+        this.correoEstudiantil = correoEstudiantil;
+        this.contraseña = contraseña;
+        this.matriculadoEn = matriculadoEn;
+    }
+
+    public void setMatriculadoEn(String matriculadoEn) {
+        this.matriculadoEn = matriculadoEn;
+    }
+
+    
+    
+
+    public String getCarné() {
         return carné;
     }
 
-    public String getCorreoEstudinatil() {
-        return correoEstudinatil;
+    public String getCorreoEstudiantil() {
+        return correoEstudiantil;
     }
 
     public String getContraseña() {
@@ -50,11 +65,11 @@ public class Estudiante extends Persona{
         this.isActive = isActive;
     }
 
-    public Tutoría getTutoríaMatriculada() {
+    public String getTutoríaMatriculada() {
         return matriculadoEn;
     }
 
-    public void MatricularEn(Tutoría matriculadoEn) {
+    public void MatricularEn(String matriculadoEn) {
         this.matriculadoEn = matriculadoEn;
     }
 }
