@@ -139,7 +139,10 @@ public class RegistrarEstudiante extends javax.swing.JFrame {
             if(datoCarne.length()==10){
                 if(controlador.verificarCorreo(datoCorreo)){
                     controlador.registrarEstudianteEnBase(datoCarne, datoCorreo, datoContraseña, "", datoNombre, false);
-                    System.out.println("Estudiante registrado");
+                    JOptionPane.showMessageDialog(this, "Estudiante registrado exitosamente");
+                    MenuPrincipal menu = new MenuPrincipal();
+                    menu.setVisible(true);
+                    this.dispose();
                 } else{
                     JOptionPane.showMessageDialog(this, "Error: El correo no tiene un formato correcto");
                 }
