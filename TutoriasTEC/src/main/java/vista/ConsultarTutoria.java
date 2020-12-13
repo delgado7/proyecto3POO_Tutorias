@@ -220,6 +220,10 @@ public class ConsultarTutoria extends javax.swing.JFrame {
             jList1.ensureIndexIsVisible(modelo.getSize());
         } else{
             JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
+            escuela.setSelectedItem("");
+            materia.setSelectedItem("");
+            codigo.setSelectedItem("");
+            modalidad.setSelectedItem("");
         }
     }//GEN-LAST:event_escuelaActionPerformed
 
@@ -237,6 +241,10 @@ public class ConsultarTutoria extends javax.swing.JFrame {
             jList1.ensureIndexIsVisible(modelo.getSize());
         } else{
             JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
+            escuela.setSelectedItem("");
+            materia.setSelectedItem("");
+            codigo.setSelectedItem("");
+            modalidad.setSelectedItem("");
         }
     }//GEN-LAST:event_materiaActionPerformed
 
@@ -254,6 +262,10 @@ public class ConsultarTutoria extends javax.swing.JFrame {
             jList1.ensureIndexIsVisible(modelo.getSize());
         } else{
             JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
+            escuela.setSelectedItem("");
+            materia.setSelectedItem("");
+            codigo.setSelectedItem("");
+            modalidad.setSelectedItem("");
         }
     }//GEN-LAST:event_modalidadActionPerformed
 
@@ -271,6 +283,11 @@ public class ConsultarTutoria extends javax.swing.JFrame {
             jList1.ensureIndexIsVisible(modelo.getSize());
         } else{
             JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
+            escuela.setSelectedItem("");
+            materia.setSelectedItem("");
+            codigo.setSelectedItem("");
+            modalidad.setSelectedItem("");
+            
         }
         
     }//GEN-LAST:event_codigoActionPerformed
