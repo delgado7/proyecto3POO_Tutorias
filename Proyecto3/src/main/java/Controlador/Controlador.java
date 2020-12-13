@@ -576,7 +576,7 @@ public class Controlador {
     }
     public Estudiante getEstudianteActivo(){
         for (Estudiante E: estudiantes){
-            if(E.isActive().equals(true))
+            if(E.isActive())
                 return E;
         }return null;
     }
