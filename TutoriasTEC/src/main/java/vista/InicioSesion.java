@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package vista;
-
+import Controlador.Controlador;
+import javax.swing.JOptionPane;
 /**
  *
  * @author JPRN1
@@ -104,6 +105,35 @@ public class InicioSesion extends javax.swing.JFrame {
 
     private void inicioSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inicioSesionActionPerformed
         // TODO add your handling code here:
+        String datoUsuario = jTextField1.getText();
+        String datoContrasena = jPasswordField1.getText();
+        if((!datoUsuario.isBlank())&&(!datoContrasena.isBlank())){
+            Controlador controlador = new Controlador();
+            int tipoUsuario = controlador.verificarCrendecials(datoUsuario, datoContrasena);
+            switch(tipoUsuario){
+                case 1:
+                    MenuEstudiante estudiante = new MenuEstudiante();
+                    estudiante.setVisible(true);
+                    this.dispose();
+                    break;
+                case 2:
+                    InicioTutor tutor = new InicioTutor();
+                    tutor.setVisible(true);
+                    this.dispose();
+                    break;
+                case 3:
+                    InicioAdmin admin = new InicioAdmin();
+                    admin.setVisible(true);
+                    this.dispose();
+                    break;
+                case -1:
+                    JOptionPane.showMessageDialog(this, "Credenciales inválidas");
+                    break;
+                default:
+                    break;   
+        }}else{
+            JOptionPane.showMessageDialog(this, "Error: Ningún campo puede estar vacío");
+        }
     }//GEN-LAST:event_inicioSesionActionPerformed
 
     /**
