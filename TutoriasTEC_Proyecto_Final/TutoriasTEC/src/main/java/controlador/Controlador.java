@@ -633,10 +633,7 @@ public class Controlador {
         if (A.isReservada()){
             edicion.put("Reservada", String.valueOf(false));
             editarAulaJSON(A.getId(),  edicion);
-        }
-            
-
-            
+        }     
     }
    public ArrayList<Estudiante> getListaEstudiantes(){
         return estudiantes;
@@ -719,8 +716,39 @@ public class Controlador {
        for(Estudiante estudianteActual : getTutoriaPorCodigo(codigo).getEstudiantesMatriculados()) {
            auxiliar.add(estudianteActual.getCarné() + "-" + estudianteActual.getNombre());
        }
-       System.out.println(getTutoriaPorCodigo(codigo).getEstudiantesMatriculados());
        return auxiliar;
+   }
+   public ArrayList<String> getListaCorreosTutores() {
+       ArrayList<String> auxiliar = new ArrayList<>();
+       for(Tutor tutorActual: tutores) {
+           auxiliar.add(tutorActual.getCorreoEstudiantil());
+       }
+       return auxiliar;
+   }
+   public ArrayList<String> getListaNombresTutores() {
+       ArrayList<String> auxiliar = new ArrayList<>();
+       for(Tutor tutorActual: tutores) {
+           auxiliar.add(tutorActual.getNombre());
+       }
+       return auxiliar;
+   }
+   public ArrayList<String> getListaNombresEscuelas() {
+       return escuelas;
+   }
+   public ArrayList<String> getListaNombresAulas() {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Aula aulaActual: aulas) {
+           auxiliar.add(aulaActual.getId());
+        }
+        return auxiliar;
+   }
+   public String getHorarioAula(String id) {
+        for(Aula aulaActual: aulas) {
+            if(aulaActual.getId().equals(id)) {
+                return Utilitaria.formatoFecha(aulaActual.getDesde()) + " - " + Utilitaria.formatoFecha(aulaActual.getHasta());
+            }
+        }
+        return "";
    }
    public int verificarCrendecials(String pUsuario, String pContraseña){
        for (int i = 0; i < estudiantes.size(); i++) {

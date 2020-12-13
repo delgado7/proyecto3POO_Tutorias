@@ -28,18 +28,20 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    static String[] opcionesTutorLista = {"", "Johan", "Fabricio", "Mariana", "Silvia", "Jose Pablo" };
-    static String[] cantidadSesiones = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10" };
+    ArrayList<String> correosTutores = main.control.getListaCorreosTutores();
+    String idAula = "1";
+    
+    static String[] opcionesTutorLista = main.control.getListaNombresTutores().toArray(String[]::new);
+    static String[] cantidadSesiones = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
     static String[] modalidadesLista = {"", "Virtual", "Presencial" };
     static String[] opcionesEscuelaLista = {"", "Matemática", "Computación" };
-    static String[] opcionesAulaLista = {"", "Aula1", "Aula2", "Aula3", "Aula4" };
-    static String[] opcionesHorarioLista = {"", "L: 15:00 - 17:00 | M: 16:30 - 18:30" };
+    static String[] opcionesAulaLista = main.control.getListaNombresAulas().toArray(String[]::new);
     static String[] mensajeError = {"un tutor.", "una modalidad.", "una escuela.",
-                                    "un aula.", "una materia.", "un horario."};
-    static String[] opcionesMatematicaLista = {"", "Discreta", "CDI", "Álgebra", "General" };
-    static String[] opcionesComputacionLista = {"", "Fundamentos", "Arqui", "ED", "POO" };
+                                    "un aula.", "una materia."};
     HashMap<String, String[]> listaMaterias = new HashMap<>();
     ArrayList<String> valorComponentes = new ArrayList<>();
+    static String[] opcionesMatematicaLista = {"", "Discreta"};
+    static String[] opcionesComputacionLista = {"", "Fundamentos"};
     
     JLabel mensajeTitulo = new JLabel("Habilitar tutoría");
     JButton botonAtras = new JButton("Atrás");
@@ -59,7 +61,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     JComboBox<String> opcionesEscuela = new JComboBox<>(opcionesEscuelaLista);
     JComboBox<String> opcionesAula = new JComboBox<>(opcionesAulaLista);
     JComboBox<String> opcionesMateria = new JComboBox<>();
-    JComboBox<String> opcionesHorario = new JComboBox<>(opcionesHorarioLista);
+    JLabel opcionesHorario = new JLabel("");
     JButton botonConfirmar = new JButton("Confirmar");
 
     HabilitarTutoria() {
@@ -135,7 +137,6 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         opcionesEscuela.addActionListener(this);
         opcionesAula.addActionListener(this);
         opcionesMateria.addActionListener(this);
-        opcionesHorario.addActionListener(this);
     }
     
     public void limpiarCampos() {
@@ -145,14 +146,14 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         opcionesModalidad.setSelectedIndex(0);
         opcionesEscuela.setSelectedIndex(0);
         opcionesAula.setSelectedIndex(0);
-        opcionesHorario.setSelectedIndex(0);
+        opcionesHorario.setText("");
         if(opcionesMateria.isEnabled()) {
             opcionesMateria.setSelectedIndex(0);
         }
     }
     
     public boolean campoVacio(ActionEvent e) {
-        for(int i = 0; i < 6; i++) {
+        for(int i = 0; i < 5; i++) {
             if(valorComponentes.get(i).equals("")) {
                 String mensaje = "Debe ingresar " + mensajeError[i];
                 JOptionPane.showMessageDialog(this, mensaje);
@@ -190,12 +191,10 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         } else if(opcionesAula.equals(source)){
             JComboBox aula = (JComboBox) e.getSource();
             valorComponentes.set(3, (String) aula.getSelectedItem());
+            opcionesHorario.setText(main.control.getHorarioAula((String) aula.getSelectedItem()));
         } else if(opcionesMateria.equals(source)){
             JComboBox materia = (JComboBox) e.getSource();
             valorComponentes.set(4, (String) materia.getSelectedItem());
-        } else if(opcionesHorario.equals(source)){
-            JComboBox horario = (JComboBox) e.getSource();
-            valorComponentes.set(5, (String) horario.getSelectedItem());
         } else if (botonConfirmar.equals(source)) {
             if(codigoTutoria.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");
