@@ -92,16 +92,17 @@ public class MenuEstudiante extends javax.swing.JFrame {
 
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
         // TODO add your handling code here:
-        MenuPrincipal menu = new MenuPrincipal();
-        menu.setVisible(true);
+        ConsultarTutoria consulta = new ConsultarTutoria();
+        consulta.setVisible(true);
         this.dispose();
     }//GEN-LAST:event_botonConsultaActionPerformed
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         // TODO add your handling code here:
-        ConsultarTutoria consulta = new ConsultarTutoria();
-        consulta.setVisible(true);
+        MenuPrincipal menu = new MenuPrincipal();
+        menu.setVisible(true);
         this.dispose();
+        
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
     /**
