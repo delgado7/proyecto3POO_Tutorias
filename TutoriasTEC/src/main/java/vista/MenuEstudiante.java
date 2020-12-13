@@ -101,7 +101,6 @@ public class MenuEstudiante extends javax.swing.JFrame {
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         // TODO add your handling code here:
-        Controlador controlador = new Controlador();
         controlador.getEstudianteActivo().setActive(false);
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);

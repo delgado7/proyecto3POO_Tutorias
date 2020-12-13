@@ -6,6 +6,7 @@
 package vista;
 import Controlador.Controlador;
 import javax.swing.JOptionPane;
+import Controlador.Controlador;
 /**
  *
  * @author JPRN1
@@ -109,7 +110,7 @@ public class InicioSesion extends javax.swing.JFrame {
         String datoContrasena = jPasswordField1.getText();
         if((!datoUsuario.isBlank())&&(!datoContrasena.isBlank())){
             Controlador controlador = new Controlador();
-            int tipoUsuario = controlador.verificarCrendecials(datoUsuario, datoContrasena);
+            int tipoUsuario = controlador.verificarCrendecials(datoUsuario,datoContrasena);
             switch(tipoUsuario){
                 case 1:
                     MenuEstudiante estudiante = new MenuEstudiante();
@@ -133,7 +134,7 @@ public class InicioSesion extends javax.swing.JFrame {
                     break;   
         }}else{
             JOptionPane.showMessageDialog(this, "Error: Ningún campo puede estar vacío");
-        }
+        } 
     }//GEN-LAST:event_inicioSesionActionPerformed
 
     /**

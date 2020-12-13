@@ -9,6 +9,8 @@ import Modelo.Tutoría;
 import Modelo.Estudiante;
 import Modelo.Persona;
 import java.util.ArrayList;
+import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.DefaultListModel;
 import javax.swing.JOptionPane;
 
@@ -17,9 +19,11 @@ import javax.swing.JOptionPane;
  * @author JPRN1
  */
 public class ConsultarTutoria extends javax.swing.JFrame {
-    private static DefaultListModel<Tutoría> modelo = new DefaultListModel<Tutoría>();
+    String[] datosTutoria = new String[6];
+    ArrayList<Tutoría> listaFiltrada = new ArrayList<Tutoría>();
     Controlador controlador = new Controlador();
     Estudiante estudianteActual = controlador.getEstudianteActivo();
+    String datoCodigo;
 
     /**
      * Creates new form ConsultarTutoria
@@ -45,11 +49,11 @@ public class ConsultarTutoria extends javax.swing.JFrame {
         escuela = new javax.swing.JComboBox<>();
         materia = new javax.swing.JComboBox<>();
         modalidad = new javax.swing.JComboBox<>();
-        codigo = new javax.swing.JComboBox<>();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
         atras = new javax.swing.JButton();
         confirmar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        tutoria = new javax.swing.JComboBox<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Tutorías TEC - Consulta tutoría");
@@ -67,22 +71,12 @@ public class ConsultarTutoria extends javax.swing.JFrame {
         jLabel4.setText("Modalidad");
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel5.setText("Código");
+        jLabel5.setText("Tutoría");
         jLabel5.setToolTipText("");
 
         escuela.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Matemática", "Computación", "Cultura y deporte", "Ciencias del lenguaje", "Ciencias sociales" }));
-        escuela.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                escuelaActionPerformed(evt);
-            }
-        });
 
         materia.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "POO", "FOC", "Intro y taller", "Cálculo", "MG", "MD", "Inglés", "CE", "CO" }));
-        materia.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                materiaActionPerformed(evt);
-            }
-        });
 
         modalidad.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Presencial", "Virtual"}));
         modalidad.addActionListener(new java.awt.event.ActionListener() {
@@ -90,21 +84,6 @@ public class ConsultarTutoria extends javax.swing.JFrame {
                 modalidadActionPerformed(evt);
             }
         });
-
-        codigo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Item 2", "Item 3", "Item 4" }));
-        codigo.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                codigoActionPerformed(evt);
-            }
-        });
-
-        jList1.setModel(modelo);
-        jList1.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jList1MouseClicked(evt);
-            }
-        });
-        jScrollPane1.setViewportView(jList1);
 
         atras.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         atras.setText("Atrás");
@@ -119,6 +98,18 @@ public class ConsultarTutoria extends javax.swing.JFrame {
         confirmar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 confirmarActionPerformed(evt);
+            }
+        });
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Tutor: \n"+"Horario: \n"+"Inicio: \n"+"Fin: \n"+"Aula: \n"+"Cupos: "
+        );
+        jScrollPane1.setViewportView(jTextArea1);
+
+        tutoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tutoriaActionPerformed(evt);
             }
         });
 
@@ -141,13 +132,13 @@ public class ConsultarTutoria extends javax.swing.JFrame {
                     .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(escuela, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(escuela, 0, 113, Short.MAX_VALUE)
                     .addComponent(materia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(modalidad, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(codigo, 0, 113, Short.MAX_VALUE))
-                .addGap(93, 93, 93)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(33, 33, 33))
+                    .addComponent(tutoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(102, 102, 102)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(27, 27, 27))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(confirmar)
@@ -161,7 +152,7 @@ public class ConsultarTutoria extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(atras))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel2)
@@ -170,16 +161,16 @@ public class ConsultarTutoria extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(materia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
+                        .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel4)
                             .addComponent(modalidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel5)
-                            .addComponent(codigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                            .addComponent(tutoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
                 .addComponent(confirmar)
                 .addGap(20, 20, 20))
         );
@@ -196,101 +187,55 @@ public class ConsultarTutoria extends javax.swing.JFrame {
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         // TODO add your handling code here:
-        Tutoría tutoria = Tutoría(jList1.getSelectedValue());
-        String cod = tutoria.getCódigo();
-        controlador.agregarEstudianteATutoría(cod, estudianteActual);
+        if (datoCodigo!="") {
+            controlador.agregarEstudianteATutoría(datoCodigo, estudianteActual);
+            JOptionPane.showMessageDialog(this, "Estudiante registrado en tutoría registrada exitosamente");
+        } else{
+            JOptionPane.showMessageDialog(this, "Error: Debe de seleccionar una tutoría");
+        }
+        
+        
     }//GEN-LAST:event_confirmarActionPerformed
 
-    private void jList1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jList1MouseClicked
+    private void tutoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tutoriaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jList1MouseClicked
-
-    private void escuelaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_escuelaActionPerformed
-        // TODO add your handling code here:
+        datoCodigo=tutoria.getSelectedItem().toString();
+        Tutoría tutoriaSeleccionada= controlador.getTutoría(datoCodigo);
+        datosTutoria[0]=tutoriaSeleccionada.getTutor().getNombre();
+        datosTutoria[1]=tutoriaSeleccionada.getHorario();
+        datosTutoria[2]=tutoriaSeleccionada.getDesde().toString();
+        datosTutoria[3]=tutoriaSeleccionada.getHasta().toString();
+        datosTutoria[4]=tutoriaSeleccionada.getAula();
+        datosTutoria[5]=String.valueOf(tutoriaSeleccionada.getCupo());
+        jTextArea1.setText("Tutor: "+datosTutoria[0]+"\n"+"Horario: "+datosTutoria[1]+"\n"+"Inicio: "+datosTutoria[2]+"\n"+"Fin: "+datosTutoria[3]+"\n"+"Aula: "+datosTutoria[4]+"\n"+"Cupos: "+datosTutoria[5]);
         
-        String datoCodigo = codigo.getSelectedItem().toString();
-        String datoEscuela = escuela.getSelectedItem().toString();
-        String datoMateria = materia.getSelectedItem().toString();
-        String datoModalidad = modalidad.getSelectedItem().toString();
-        if(datoEscuela!=""&&datoCodigo.equals("")&&datoMateria.equals("")&&datoModalidad.equals("")){
-            modelo.clear();
-            ArrayList<Tutoría> listaFiltrada = new ArrayList<Tutoría>();
-            listaFiltrada = controlador.getListaTutoríasPorEscuela(datoEscuela);
-            modelo.addAll(listaFiltrada);
-            jList1.ensureIndexIsVisible(modelo.getSize());
-        } else{
-            JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
-            escuela.setSelectedItem("");
-            materia.setSelectedItem("");
-            codigo.setSelectedItem("");
-            modalidad.setSelectedItem("");
-        }
-    }//GEN-LAST:event_escuelaActionPerformed
-
-    private void materiaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_materiaActionPerformed
-        // TODO add your handling code here:
-        String datoCodigo = codigo.getSelectedItem().toString();
-        String datoEscuela = escuela.getSelectedItem().toString();
-        String datoMateria = materia.getSelectedItem().toString();
-        String datoModalidad = modalidad.getSelectedItem().toString();
-        if(datoEscuela.equals("")&&datoCodigo!=""&&datoMateria.equals("")&&datoModalidad.equals("")){
-            modelo.clear();
-            ArrayList<Tutoría> listaFiltrada = new ArrayList<Tutoría>();
-            listaFiltrada = controlador.getListaTutoríasPorMateria(datoMateria);
-            modelo.addAll(listaFiltrada);
-            jList1.ensureIndexIsVisible(modelo.getSize());
-        } else{
-            JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
-            escuela.setSelectedItem("");
-            materia.setSelectedItem("");
-            codigo.setSelectedItem("");
-            modalidad.setSelectedItem("");
-        }
-    }//GEN-LAST:event_materiaActionPerformed
+        
+        
+        
+        
+        
+          
+    }//GEN-LAST:event_tutoriaActionPerformed
 
     private void modalidadActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_modalidadActionPerformed
         // TODO add your handling code here:
-        String datoCodigo = codigo.getSelectedItem().toString();
+        tutoria.removeAllItems();
         String datoEscuela = escuela.getSelectedItem().toString();
         String datoMateria = materia.getSelectedItem().toString();
         String datoModalidad = modalidad.getSelectedItem().toString();
-        if(datoEscuela.equals("")&&datoCodigo.equals("")&&datoMateria!=""&&datoModalidad.equals("")){
-            modelo.clear();
-            ArrayList<Tutoría> listaFiltrada = new ArrayList<Tutoría>();
-            listaFiltrada = controlador.getListaTutoríasPorModalidad(datoModalidad);
-            modelo.addAll(listaFiltrada);
-            jList1.ensureIndexIsVisible(modelo.getSize());
-        } else{
-            JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
-            escuela.setSelectedItem("");
-            materia.setSelectedItem("");
-            codigo.setSelectedItem("");
-            modalidad.setSelectedItem("");
-        }
-    }//GEN-LAST:event_modalidadActionPerformed
-
-    private void codigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_codigoActionPerformed
-        // TODO add your handling code here:
-        String datoCodigo = codigo.getSelectedItem().toString();
-        String datoEscuela = escuela.getSelectedItem().toString();
-        String datoMateria = materia.getSelectedItem().toString();
-        String datoModalidad = modalidad.getSelectedItem().toString();
-        if(datoEscuela.equals("")&&datoCodigo.equals("")&&datoMateria.equals("")&&datoModalidad!=""){
-            modelo.clear();
-            ArrayList<Tutoría> listaFiltrada = new ArrayList<Tutoría>();
-            listaFiltrada = controlador.getListaTutoríasPorCódigo(datoCodigo);
-            modelo.addAll(listaFiltrada);
-            jList1.ensureIndexIsVisible(modelo.getSize());
-        } else{
-            JOptionPane.showMessageDialog(this, "Error: Solo puede tener un filtro activo");
-            escuela.setSelectedItem("");
-            materia.setSelectedItem("");
-            codigo.setSelectedItem("");
-            modalidad.setSelectedItem("");
+        ArrayList<String> datosCodigo = new ArrayList<String>();
+        if((datoEscuela!="")&&(datoMateria!="")&&(datoModalidad!="")){
+            listaFiltrada=controlador.getListaTutoríasFiltrada(datoEscuela, datoMateria, datoModalidad);
+            for (int i = 0; i < listaFiltrada.size(); i++) {
+                datosCodigo.add(listaFiltrada.get(i).getCódigo());
+            }
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel(datosCodigo.toArray());
+            tutoria.setModel(modelo);  
             
-        }
-        
-    }//GEN-LAST:event_codigoActionPerformed
+        } else{
+            JOptionPane.showMessageDialog(this, "Error: Todas las selecciones son obligatorias");
+        } 
+    }//GEN-LAST:event_modalidadActionPerformed
 
     /**
      * @param args the command line arguments
@@ -329,7 +274,6 @@ public class ConsultarTutoria extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton atras;
-    private javax.swing.JComboBox<String> codigo;
     private javax.swing.JButton confirmar;
     private javax.swing.JComboBox<String> escuela;
     private javax.swing.JLabel jLabel1;
@@ -337,9 +281,10 @@ public class ConsultarTutoria extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JComboBox<String> materia;
     private javax.swing.JComboBox<String> modalidad;
+    private javax.swing.JComboBox<String> tutoria;
     // End of variables declaration//GEN-END:variables
 }
