@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package vista;
-
+import Controlador.Controlador;
+import javax.swing.JOptionPane;
 /**
  *
  * @author JPRN1
@@ -129,8 +130,27 @@ public class RegistrarEstudiante extends javax.swing.JFrame {
 
     private void registrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarActionPerformed
         // TODO add your handling code here:
-        System.out.println(contraseña.getText());
-        System.out.println(nombre.getText());
+        Controlador controlador = new Controlador();
+        String datoContraseña = contraseña.getText();
+        String datoNombre = nombre.getText();
+        String datoCarne = carne.getText();
+        String datoCorreo = correo.getText();
+        if((!datoNombre.isBlank())&&(!datoContraseña.isBlank())&&(!datoCarne.isBlank())&&(!datoCorreo.isBlank())){
+            if(datoCarne.length()==10){
+                if(controlador.verificarCorreo(datoCorreo)){
+                    controlador.registrarEstudianteEnBase(datoCarne, datoCorreo, datoContraseña, "", datoNombre, false);
+                    System.out.println("Estudiante registrado");
+                } else{
+                    JOptionPane.showMessageDialog(this, "Error: El correo no tiene un formato correcto");
+                }
+            } else{
+                JOptionPane.showMessageDialog(this, "Error: El carné debe de tener 10 números");
+            }
+            
+        } else{
+            JOptionPane.showMessageDialog(this, "Error: Ningún campo puede estar vacío");
+        }
+        
     }//GEN-LAST:event_registrarActionPerformed
 
     /**
