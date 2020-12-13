@@ -574,6 +574,12 @@ public class Controlador {
                 return E;
         }return null;
     }
+    public Estudiante getEstudianteActivo(){
+        for (Estudiante E: estudiantes){
+            if(E.isActive().equals(true))
+                return E;
+        }return null;
+    }
     public Tutor getTutor(String carné){
         for (Tutor T: tutores){
             if(T.getCarné().equals(carné))
