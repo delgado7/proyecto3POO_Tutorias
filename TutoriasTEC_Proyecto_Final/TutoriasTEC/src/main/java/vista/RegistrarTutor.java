@@ -9,6 +9,7 @@ package vista;
  *
  * @author Silvia Rodriguez
  */
+import Modelo.TModalidad;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -20,7 +21,7 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     JButton botonRegistrarTutor = new JButton("Registrar Tutor");
     
     String[] modalidades = {null, "Virtual", "Presencial"};
-    String[] tutorias = {null, "Matemática Discreta", "Matemática General"};
+    String[] tutorias = main.control.materiasDefault;
     JComboBox<String> ComboBoxModalidades = new JComboBox<>(modalidades);
     JComboBox<String> ComboBoxTutorias = new JComboBox<>(tutorias);
 
@@ -34,6 +35,8 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     JTextField TextFieldNombre = new JTextField();
     JTextField TextFieldCorreo = new JTextField();
     JTextField TextFieldContraseña = new JTextField();
+    String modalidadSeleccionada = "";
+    String materiaSeleccionada = "";
 
     RegistrarTutor()
     {
@@ -49,6 +52,8 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     public void addActionEvent()
     {
         botonRegistrarTutor.addActionListener(this);
+        ComboBoxModalidades.addActionListener(this);
+        ComboBoxTutorias.addActionListener(this);
         botonAtras.addActionListener(this);
     }
     public void setLocationAndSize()
@@ -94,26 +99,32 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     public void actionPerformed(ActionEvent e)
     {
 
-        if (e.getSource() == botonAtras) {
+        if (e.getSource().equals(botonAtras)) {
             limpiarCampos();
             Inicio.VentanaRegistrarTutor(false);
             Inicio.VentanaInicioAdmin(true);
-        }
-        if(e.getSource() == botonRegistrarTutor)
-        {
+        } else if(e.getSource().equals(ComboBoxTutorias)) {
+            JComboBox materiaTutoria = (JComboBox) e.getSource();
+            materiaSeleccionada = (String) materiaTutoria.getSelectedItem();
+        } else if(e.getSource().equals(ComboBoxModalidades)) {
+            JComboBox modalidad = (JComboBox) e.getSource();
+            modalidadSeleccionada = (String) modalidad.getSelectedItem();
+        } else if(e.getSource().equals(botonRegistrarTutor)) {
             if(ComboBoxModalidades.getSelectedItem() == null || ComboBoxTutorias.getSelectedItem() == null 
                || TextFieldNombre.getText().equals("") || TextFieldCorreo.getText().equals("") || 
-               TextFieldContraseña.getText().equals(""))
-                
-            {
+               TextFieldContraseña.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "No se aceptan espacios vacíos.");
             }
-            else
-            {
-                ComboBoxModalidades.setSelectedIndex(0);
-                ComboBoxTutorias.setSelectedIndex(0);
-                limpiarCampos();
-                JOptionPane.showMessageDialog(this, "El tutor se ha agregado con éxito.");
+            else {
+                if(main.control.registrarTutorEnBase(TModalidad.valueOf(modalidadSeleccionada), materiaSeleccionada,
+                                TextFieldCorreo.getText(), TextFieldContraseña.getText(), TextFieldNombre.getText(), false)) {
+                    ComboBoxModalidades.setSelectedIndex(0);
+                    ComboBoxTutorias.setSelectedIndex(0);
+                    limpiarCampos();
+                    JOptionPane.showMessageDialog(this, "El tutor se ha agregado con éxito.");
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al registrar un tutor.");
+                }
             }
         }
     }    

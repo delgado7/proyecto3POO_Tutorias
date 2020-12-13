@@ -31,6 +31,7 @@ public class main {
         control.cargarInformacionJSON("Tutor.json", "Tutor");
         control.cargarInformacionJSON("Aula.json", "Aula");
         control.cargarInformacionJSON("Tutoría.json", "Tutoría");
+        control.prepararDiccionarios();
         
         frameInicioTutor = new InicioTutor();
         frameAsistenciaTutoria = new AsistenciaTutoria();

@@ -13,18 +13,9 @@ import javax.swing.JOptionPane;
  * @author Silvia Rodriguez
  */
 public class RevisarEstadisticas extends javax.swing.JFrame {
-    String[] materiasDisponibles = {null, "Matemática", "Física", "Química"};
-    static String[] opcionesMate = {null, "Matemática General", "Matemática Discreta"};
-    static String[] opcionesFisica = {null, "Física I", "Física II"};
-    static String[] opcionesQuimica = {null, "Química I", "Química II"};
-    static String[] tutoriasFisica1 = {null, "Fisica I 40", "Fisica I 41"};
-    static String[] tutoriasFisica2 = {null, "Fisica II 40", "Fisica II 41"};
-    static String[] tutoriasQuimica1 = {null, "Quimica I 40", "Quimica I 41"};
-    static String[] tutoriasQuimica2 = {null, "Quimica II 40", "Quimica II 41"};
-    static String[] tutoriasMG = {null, "MG 40", "MG 41"};
-    static String[] tutoriasMD = {null, "MD 40", "MD 41"};
-    static HashMap<String, String[]> Materias = new HashMap<>();
-    
+    String[] materiasDisponibles = main.control.materiasDefault;
+    HashMap<String, String[]> escuelaMaterias = main.control.escuelaMaterias;
+    HashMap<String, String[]> materiaTutorias = main.control.materiaTutorias;
     
     /**
      * Creates new form RevisarEstadisticas
@@ -84,7 +75,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(materiasDisponibles));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(main.control.escuelasDefault));
         jComboBox1.setPreferredSize(new java.awt.Dimension(150, 30));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -110,6 +101,11 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null }));
         jComboBox4.setPreferredSize(new java.awt.Dimension(150, 30));
+        jComboBox4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox4ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Confirmar");
         jButton1.setPreferredSize(new java.awt.Dimension(150, 30));
@@ -253,47 +249,12 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
         // TODO add your handling code here
-        if(jComboBox2.getSelectedItem() == "Física I")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasFisica1));
-        }
-        else if(jComboBox2.getSelectedItem() == "Física II")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasFisica2));
-        }
-        else if(jComboBox2.getSelectedItem() == "Química I")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasQuimica1));
-        }
-        else if(jComboBox2.getSelectedItem() == "Química II")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasQuimica2));
-        }
-        else if(jComboBox2.getSelectedItem() == "Matemática General")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasMG));
-        }
-        else if(jComboBox2.getSelectedItem() == "Matemática Discreta")
-        {
-            jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutoriasMD));
-        }
-
+        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(materiaTutorias.get(jComboBox2.getSelectedItem())));
     }//GEN-LAST:event_jComboBox2ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        if(jComboBox1.getSelectedItem() == "Matemática")
-        {
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesMate));
-        }
-        else if(jComboBox1.getSelectedItem() == "Física")
-        {
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesFisica));
-        }
-        else if(jComboBox1.getSelectedItem() == "Química")
-        {
-            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(opcionesQuimica));
-        }
+        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(escuelaMaterias.get(jComboBox1.getSelectedItem())));
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -301,13 +262,13 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
         jLabel6.setVisible(false);
         jLabel7.setVisible(false);
         jLabel8.setVisible(false);
-        jComboBox1.setSelectedIndex(0);
-        jComboBox2.setSelectedIndex(0);
-        jComboBox3.setSelectedIndex(0);
-        jComboBox4.setSelectedIndex(0);
         Inicio.VentanaRegistrarTutor(false);
         Inicio.VentanaInicioAdmin(true);
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -337,11 +298,6 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        Materias.put("Matemática", opcionesMate);
-        Materias.put("Química", opcionesQuimica);
-        Materias.put("Física", opcionesFisica);
-        
-        
                 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {

@@ -76,7 +76,7 @@ public class HabilitarAula extends javax.swing.JFrame {
 
         jLabel4.setText("Fin");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { null, "J06-101", "J06-102", "J06-103" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(main.control.aulasDefault));
         jComboBox1.setPreferredSize(new java.awt.Dimension(150, 30));
 
         jDateChooser1.setPreferredSize(new java.awt.Dimension(150, 30));

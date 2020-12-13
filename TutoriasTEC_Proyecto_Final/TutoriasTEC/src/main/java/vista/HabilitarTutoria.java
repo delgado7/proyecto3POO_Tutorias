@@ -34,14 +34,13 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     static String[] opcionesTutorLista = main.control.getListaNombresTutores().toArray(String[]::new);
     static String[] cantidadSesiones = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
     static String[] modalidadesLista = {"", "Virtual", "Presencial" };
-    static String[] opcionesEscuelaLista = {"", "Matemática", "Computación" };
+    static String[] opcionesEscuelaLista = main.control.escuelasDefault;
     static String[] opcionesAulaLista = main.control.getListaNombresAulas().toArray(String[]::new);
     static String[] mensajeError = {"un tutor.", "una modalidad.", "una escuela.",
                                     "un aula.", "una materia."};
     HashMap<String, String[]> listaMaterias = new HashMap<>();
     ArrayList<String> valorComponentes = new ArrayList<>();
-    static String[] opcionesMatematicaLista = {"", "Discreta"};
-    static String[] opcionesComputacionLista = {"", "Fundamentos"};
+    HashMap<String, String[]> escuelaMaterias = main.control.escuelaMaterias;
     
     JLabel mensajeTitulo = new JLabel("Habilitar tutoría");
     JButton botonAtras = new JButton("Atrás");
@@ -125,8 +124,6 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         for(int i = 0; i < 6; i++) {
             valorComponentes.add("");
         }
-        listaMaterias.put("Matemática", opcionesMatematicaLista);
-        listaMaterias.put("Computación", opcionesComputacionLista);
     }
 
     public void addActionEvent() {
@@ -185,7 +182,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
             } else {
                 opcionesMateria.setEnabled(true);
                 opcionesMateria.removeAllItems();
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel(listaMaterias.get(nombreEscuela));
+                DefaultComboBoxModel modelo = new DefaultComboBoxModel(escuelaMaterias.get(nombreEscuela));
                 opcionesMateria.setModel(modelo);
             }
         } else if(opcionesAula.equals(source)){

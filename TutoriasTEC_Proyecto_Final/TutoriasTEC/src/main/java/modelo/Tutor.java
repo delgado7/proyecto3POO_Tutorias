@@ -13,7 +13,7 @@ public class Tutor extends Estudiante{
     
     private final TModalidad modalidad;
     private final String materiaTutoría;
-private boolean Active=false;
+    private boolean Active=false;
 
     public Tutor(TModalidad modalidad, String materiaTutoría, String correoEstudiantil, String contraseña, String nombre) {
         super(correoEstudiantil, contraseña, nombre);

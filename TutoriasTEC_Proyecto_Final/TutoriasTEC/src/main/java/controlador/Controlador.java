@@ -24,6 +24,13 @@ public class Controlador {
     ArrayList<String> materias = new ArrayList<>();
     ArrayList<Tutoría> tutorías = new ArrayList<>();
     ArrayList<Aula> aulas = new ArrayList<>();
+    public String [] aulasDefault = {"", "1", "2", "3"};
+    public String [] escuelasDefault = {"", "Computación", "Matemática"};
+    public String [] materiasComputacionDefault = {"", "Fundamentos", "Intro Taller"};
+    public String [] materiasMatematicasDefault = {"", "Discreta", "General"};
+    public String [] materiasDefault = {"", "Fundamentos", "Intro Taller", "Discreta", "General"};
+    public HashMap<String, String[]> escuelaMaterias = new HashMap<>();
+    public HashMap<String, String[]> materiaTutorias = new HashMap<>();
 
     public Controlador() {}
     
@@ -624,9 +631,7 @@ public class Controlador {
             edicion.put("Hasta", Utilitaria.formatoFechaJSON(Hasta));
             edicion.put("Reservada", String.valueOf(true));
             editarAulaJSON(A.getId(), edicion);
-        }
-            
-            
+        }  
     }
     public void DeshabilitarAula(Aula A){
         HashMap edicion= new HashMap();
@@ -749,6 +754,23 @@ public class Controlador {
             }
         }
         return "";
+   }
+   public void prepararDiccionarios() {
+       escuelaMaterias.put("Computación", materiasComputacionDefault);
+       escuelaMaterias.put("Matemática", materiasMatematicasDefault);
+       for(String materia: materiasDefault) {
+           materiaTutorias.put(materia, getTutoriasPorMateria(materia).toArray(String[]::new));
+       }
+   }
+   public ArrayList<String> getTutoriasPorMateria(String materia) {
+       ArrayList<String> auxiliar = new ArrayList<>();
+       for(Tutoría tutoriaActual: tutorías) {
+           if(tutoriaActual.getMateria().equals(materia)) {
+               auxiliar.add(tutoriaActual.getCódigo());
+           }
+       }
+       System.out.println(auxiliar.toString());
+       return auxiliar;
    }
    public int verificarCrendecials(String pUsuario, String pContraseña){
        for (int i = 0; i < estudiantes.size(); i++) {
