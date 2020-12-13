@@ -196,7 +196,8 @@ public class ConsultarTutoria extends javax.swing.JFrame {
 
     private void confirmarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_confirmarActionPerformed
         // TODO add your handling code here:
-        String cod = jList1.getSelectedValue();
+        Tutoría tutoria = Tutoría(jList1.getSelectedValue());
+        String cod = tutoria.getCódigo();
         controlador.agregarEstudianteATutoría(cod, estudianteActual);
     }//GEN-LAST:event_confirmarActionPerformed
 
