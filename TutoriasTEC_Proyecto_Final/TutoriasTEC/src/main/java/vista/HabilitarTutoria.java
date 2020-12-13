@@ -8,6 +8,7 @@ package vista;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.DefaultComboBoxModel;
 import java.util.ArrayList;
 import java.util.HashMap;
 import javax.swing.JButton;

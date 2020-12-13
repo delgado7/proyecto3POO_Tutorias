@@ -54,8 +54,8 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     public void setLocationAndSize()
     {
         botonRegistrarTutor.setBounds(225, 300, 150, 30);
-        botonAtras.setBounds(450,25, 100, 30 );
-        TextoRegistroTutor.setBounds(50, 35, 150, 30);
+        botonAtras.setBounds(430, 25, 100, 30);
+        TextoRegistroTutor.setBounds(50, 25, 150, 30);
         TextoNombreEstudiante.setBounds(100, 90, 150, 30);
         TextoCorreo.setBounds(100, 130, 150, 30);
         TextoContraseña.setBounds(100, 170, 150, 30);
@@ -83,14 +83,19 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
         container.add(ComboBoxModalidades);
         container.add(ComboBoxTutorias);
     }
+    public void limpiarCampos() {
+        TextFieldNombre.setText("");
+        TextFieldCorreo.setText("");
+        TextFieldContraseña.setText("");
+        ComboBoxModalidades.setSelectedIndex(0);
+        ComboBoxTutorias.setSelectedIndex(0);
+    }
     @Override
     public void actionPerformed(ActionEvent e)
     {
 
         if (e.getSource() == botonAtras) {
-            TextFieldNombre.setText("");
-            TextFieldContraseña.setText("");
-            TextFieldContraseña.setText("");
+            limpiarCampos();
             Inicio.VentanaRegistrarTutor(false);
             Inicio.VentanaInicioAdmin(true);
         }
@@ -107,9 +112,7 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
             {
                 ComboBoxModalidades.setSelectedIndex(0);
                 ComboBoxTutorias.setSelectedIndex(0);
-                TextFieldNombre.setText("");
-                TextFieldCorreo.setText("");
-                TextFieldContraseña.setText("");
+                limpiarCampos();
                 JOptionPane.showMessageDialog(this, "El tutor se ha agregado con éxito.");
             }
         }

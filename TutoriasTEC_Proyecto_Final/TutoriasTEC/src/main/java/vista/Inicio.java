@@ -72,7 +72,7 @@ public class Inicio {
     
     public static void VentanaInicioAdmin(boolean visibilidad)
     {
-        frameInicioAdmin.setTitle("Inicio - Administrador");
+        frameInicioAdmin.setTitle("Tutorías TEC - Administrador");
         frameInicioAdmin.setVisible(visibilidad);
         frameInicioAdmin.setBounds(560, 140, 600, 400);
         center(frameInicioAdmin);
@@ -84,7 +84,7 @@ public class Inicio {
     
     public static void VentanaRegistrarTutor(boolean visibilidad)
     {
-        frameRegistrarTutor.setTitle("Registrar un tutor - Administrador");
+        frameRegistrarTutor.setTitle("Tutorías TEC - Registrar Tutor");
         frameRegistrarTutor.setVisible(visibilidad);
         frameRegistrarTutor.setBounds(560, 140, 600, 400);
         center(frameRegistrarTutor);
@@ -96,24 +96,23 @@ public class Inicio {
     
     public static void VentanaRevisarEstadisticas(boolean visibilidad)
     {
-        frameRevisarEstadisticas.setTitle("Revisar Estadísticas - Administrador");
+        frameRevisarEstadisticas.setTitle("Tutorías TEC - Revisar Estadísticas");
         frameRevisarEstadisticas.setVisible(visibilidad);
         frameRevisarEstadisticas.setBounds(560, 140, 600, 400);
         center(frameRevisarEstadisticas);
         frameRevisarEstadisticas.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameRevisarEstadisticas.setResizable(false);
-        frameRevisarEstadisticas.getContentPane().setBackground(Color.white);
         frameRevisarEstadisticas.setIconImage(img.getImage());
     }
     
     public static void VentanaHabilitarAula(boolean visibilidad)
     {
+        frameHabilitarAula.setTitle("Tutorías TEC - Habilitar Aula");
         frameHabilitarAula.setVisible(visibilidad);
         frameHabilitarAula.setBounds(560, 140, 600, 400);
         center(frameHabilitarAula);
         frameHabilitarAula.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frameHabilitarAula.setResizable(false);
-        frameHabilitarAula.getContentPane().setBackground(Color.white);
         frameHabilitarAula.setIconImage(img.getImage());
     }
     

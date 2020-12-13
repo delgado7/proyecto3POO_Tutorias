@@ -43,9 +43,9 @@ public final class InicioAdmin extends JFrame implements ActionListener{
     public void setLocationAndSize()
     {
         botonHabilitarAula.setBounds(225,100, 150, 30);
-        botonRegistrarTutor.setBounds(225, 200, 150, 30);
-        botonRevisarEstadisticas.setBounds(225,300, 150, 30);
-        botonCerrarSesion.setBounds(400,25, 150, 30);
+        botonRegistrarTutor.setBounds(225, 150, 150, 30);
+        botonRevisarEstadisticas.setBounds(225, 200, 150, 30);
+        botonCerrarSesion.setBounds(430, 25, 100, 30);
     }
     public void addComponentsToContainer()
     {
