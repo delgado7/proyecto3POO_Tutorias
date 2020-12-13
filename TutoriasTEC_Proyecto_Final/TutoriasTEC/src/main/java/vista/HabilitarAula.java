@@ -188,6 +188,7 @@ public class HabilitarAula extends javax.swing.JFrame {
         }
         else
         {
+            main.control.habilitarAula(main.control.getAula((String) jComboBox1.getSelectedItem()), jDateChooser1.getCalendar(), jDateChooser2.getCalendar());
             jComboBox1.setSelectedIndex(0);
             jDateChooser1.setCalendar(null);
             jDateChooser2.setCalendar(null);

@@ -24,7 +24,7 @@ public class Controlador {
     ArrayList<String> materias = new ArrayList<>();
     ArrayList<Tutoría> tutorías = new ArrayList<>();
     ArrayList<Aula> aulas = new ArrayList<>();
-    public String [] aulasDefault = {"", "1", "2", "3"};
+    public String [] aulasDefault = {"1"};
     public String [] escuelasDefault = {"", "Computación", "Matemática"};
     public String [] materiasComputacionDefault = {"", "Fundamentos", "Intro Taller"};
     public String [] materiasMatematicasDefault = {"", "Discreta", "General"};
@@ -769,7 +769,6 @@ public class Controlador {
                auxiliar.add(tutoriaActual.getCódigo());
            }
        }
-       System.out.println(auxiliar.toString());
        return auxiliar;
    }
    public int verificarCrendecials(String pUsuario, String pContraseña){
