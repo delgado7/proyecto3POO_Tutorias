@@ -4,7 +4,8 @@
  * and open the template in the editor.
  */
 package vista;
-
+import Modelo.Estudiante;
+import Modelo.Persona;
 /**
  *
  * @author JPRN1
@@ -35,7 +36,7 @@ public class MenuEstudiante extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel1.setText("Bienvenido ");
+        jLabel1.setText("Bienvenido "+controlador.getEstudianteActivo().getNombre());
 
         botonConsulta.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         botonConsulta.setText("Consultar tutorías");
@@ -89,7 +90,7 @@ public class MenuEstudiante extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
+    Controlador controlador = new Controlador();
     private void botonConsultaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonConsultaActionPerformed
         // TODO add your handling code here:
         ConsultarTutoria consulta = new ConsultarTutoria();
@@ -99,9 +100,11 @@ public class MenuEstudiante extends javax.swing.JFrame {
 
     private void botonCerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonCerrarSesionActionPerformed
         // TODO add your handling code here:
+        controlador.getEstudianteActivo().setActive(false);
         MenuPrincipal menu = new MenuPrincipal();
         menu.setVisible(true);
         this.dispose();
+        
         
     }//GEN-LAST:event_botonCerrarSesionActionPerformed
 
