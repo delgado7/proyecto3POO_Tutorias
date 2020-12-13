@@ -689,6 +689,15 @@ public class Controlador {
       }
       return auxiliar;
    }
+   public ArrayList<Tutoría> getListaTutoríasFiltrada(String pEscuela, String pMateria, String pModalidad){
+      ArrayList<Tutoría> auxiliar = new ArrayList();
+       for (int i = 0; i < tutorías.size(); i++) {
+           if (tutorías.get(i).getEscuela().equals(pEscuela)&&tutorías.get(i).getMateria().equals(pMateria)&&tutorías.get(i).getModalidad().equals(pModalidad)) {
+               auxiliar.add(tutorías.get(i));
+           }
+      }
+      return auxiliar;
+   }
    public ArrayList<Tutoría> getListaTutorías(){
        return tutorías;
    }
