@@ -19,10 +19,8 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    int cantidadEstudiantes = 5;
-    static String[] nombres = {" 2020250801 - Johan Calvo Vargas", " 2020070801 - Fabricio Delgado Morales",
-                               " 2020221165 - Mariana Hidalgo Sandoval", " 2020141261 - Silvia Melissa Rodríguez Fernández",
-                               " 2020131086 - Jose Pablo Rojas Núñez"};
+    static String codigoActual = "FOC34";
+    static String[] nombres = main.control.getListaEstudiantesTutoria(codigoActual).toArray(String[]::new);
     JLabel mensajeTitulo = new JLabel("Asistencia sesión X tutoría XXXXX ");
     JButton botonAtras = new JButton("Atrás");
     JPanel lista = new JPanel();
@@ -45,7 +43,7 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
     }
     
     public void createCheckBoxes() {
-        for(int i = 0; i < cantidadEstudiantes; i++) {
+        for(int i = 0; i < nombres.length; i++) {
             JCheckBox estudiante = new JCheckBox(nombres[i]);
             checkBoxList.add(estudiante);
             lista.add(estudiante);

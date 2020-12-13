@@ -14,14 +14,24 @@ import static vista.Inicio.frameInicioAdmin;
 import static vista.Inicio.frameRegistrarTutor;
 import static vista.Inicio.frameRevisarEstadisticas;
 import static vista.Inicio.frameHabilitarAula;
+import Controlador.*;
 
 /**
  *
  * @author mhidalgos0708
  */
 public class main {
+    
+    public static Controlador control = new Controlador();
+    
     public static void main(String[] args) {
         FlatLightLaf.install();
+        
+        control.cargarInformacionJSON("Estudiante.json", "Estudiante");
+        control.cargarInformacionJSON("Tutor.json", "Tutor");
+        control.cargarInformacionJSON("Aula.json", "Aula");
+        control.cargarInformacionJSON("Tutoría.json", "Tutoría");
+        
         frameInicioTutor = new InicioTutor();
         frameAsistenciaTutoria = new AsistenciaTutoria();
         frameAsistenciaLista = new AsistenciaLista();
@@ -30,6 +40,7 @@ public class main {
         frameRegistrarTutor = new RegistrarTutor();
         frameRevisarEstadisticas = new RevisarEstadisticas();
         frameHabilitarAula = new HabilitarAula();
-        Inicio.VentanaInicioAdmin(true);
+        
+        Inicio.VentanaInicioTutor(true);
     }
 }

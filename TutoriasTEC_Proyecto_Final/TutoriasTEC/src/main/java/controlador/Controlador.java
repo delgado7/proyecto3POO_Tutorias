@@ -689,7 +689,39 @@ public class Controlador {
    public ArrayList<Aula> getListaAula(){
        return aulas;
    }
-   
+   public ArrayList<String> getListaCodigos(String correo) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for (int i = 0; i < tutorías.size(); i++) {
+            if(tutorías.get(i).getTutor().getCorreoEstudiantil().equals(correo)) {
+                auxiliar.add(tutorías.get(i).getCódigo());
+            }
+        }
+        return auxiliar;
+   }
+   public Tutoría getTutoriaPorCodigo(String codigo) {
+       for(int i = 0; i < tutorías.size(); i++) {
+           if(tutorías.get(i).getCódigo().equals(codigo)) {
+               return tutorías.get(i);
+           }
+       }
+       return null;
+   }
+   public ArrayList<String> getListaSesiones(String codigo) {
+       ArrayList<String> auxiliar = new ArrayList<>();
+       for(int i = 0; i < getTutoriaPorCodigo(codigo).getSesionesTotales(); i++) {
+           int numeroSesion = i + 1;
+           auxiliar.add("Sesión " + numeroSesion);
+       }
+       return auxiliar;
+   }
+   public ArrayList<String> getListaEstudiantesTutoria(String codigo) {
+       ArrayList<String> auxiliar = new ArrayList<>();
+       for(Estudiante estudianteActual : getTutoriaPorCodigo(codigo).getEstudiantesMatriculados()) {
+           auxiliar.add(estudianteActual.getCarné() + "-" + estudianteActual.getNombre());
+       }
+       System.out.println(getTutoriaPorCodigo(codigo).getEstudiantesMatriculados());
+       return auxiliar;
+   }
    public int verificarCrendecials(String pUsuario, String pContraseña){
        for (int i = 0; i < estudiantes.size(); i++) {
            if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {

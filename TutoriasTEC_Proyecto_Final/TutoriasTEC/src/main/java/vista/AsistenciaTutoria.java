@@ -18,8 +18,9 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    static String[] opcionesTutoriaLista = {"", "Cálculo" };
-    static String[] opcionesSesionLista = {"", "Sesión 1", "Sesión 2", "Sesión 3", "Sesión 4" };
+    static String correoActual = "gmail";
+    
+    static String[] opcionesTutoriaLista = main.control.getListaCodigos(correoActual).toArray(String[]::new);
     HashMap<String, String[]> listaSesiones = new HashMap<>();
     
     JLabel mensajeTitulo = new JLabel("Asistencia ");
@@ -62,7 +63,9 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
         container.add(opcionesSesion);
         container.add(botonAsistencia);
         opcionesSesion.setEnabled(false);
-        listaSesiones.put("Cálculo", opcionesSesionLista);
+        for(String codigo: opcionesTutoriaLista) {
+            listaSesiones.put(codigo, main.control.getListaSesiones(codigo).toArray(String[]::new));
+        }
     }
 
     public void addActionEvent() {

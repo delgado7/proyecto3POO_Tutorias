@@ -22,7 +22,6 @@ Controlador\Administrador.class
 Controlador\Utilitaria.class
 Controlador\Controlador.class
 Modelo\TModalidad.class
-Controlador\XMLParser.class
 vista\HabilitarTutoria.class
 Modelo\Tutor.class
 Modelo\Aula.class
