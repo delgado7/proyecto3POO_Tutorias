@@ -262,7 +262,11 @@ public class Controlador {
                 break;
             case "Tutor":
                 Tutor ultimoTutor;
-                ultimoTutor=tutores.get(tutores.size()-1);
+                if(ultimo) {
+                    ultimoTutor=tutores.get(tutores.size()-1);
+                } else {
+                    ultimoTutor=tutorías.get(tutorías.size()-1).getTutor();
+                }
                 dato.put("Modalidad",ultimoTutor.getModalidad().toString());
                 dato.put("MateriaTutoría",ultimoTutor.getMateriaTutoría());
                 dato.put("CorreoEstudinatil",ultimoTutor.getCorreoEstudiantil());
@@ -465,7 +469,7 @@ public class Controlador {
         }
     }
     public boolean registrarEstudianteEnBase(String carné, String correoEstudiantil, String contraseña, String matriculadoEn, String nombre, boolean lectura){
-        if(obtenerEstudiante(carné) == null) {
+        if(obtenerEstudiante(carné) == null && obtenerEstudianteCorreo(correoEstudiantil) == null) {
             Estudiante nuevoEstudiante = new Estudiante( carné,  correoEstudiantil,  contraseña,  matriculadoEn,  nombre,  "Estudiante");
             estudiantes.add(nuevoEstudiante);
             
@@ -496,6 +500,19 @@ public class Controlador {
         {
             elCliente = estudiantes.get(i);
             if(elCliente.getCarné().equals(pId))
+            {
+                return elCliente;
+            }
+        }
+        return null;
+    }
+    public Estudiante obtenerEstudianteCorreo(String correo)
+    {
+        Estudiante elCliente;
+        for(int i = 0; i < estudiantes.size(); i++)
+        {
+            elCliente = estudiantes.get(i);
+            if(elCliente.getCorreoEstudiantil().equals(correo))
             {
                 return elCliente;
             }
@@ -595,17 +612,17 @@ public class Controlador {
         return 0;
     }
     public void PasarLista(String pCódigo, String pCarné, boolean presente){
-        HashMap edicion= new HashMap();
-        edicion.put("matriculadoEn", "");
+        //HashMap edicion= new HashMap();
+        //edicion.put("matriculadoEn", "");
         if (presente) {
             for (int i = 0; i < tutorías.size(); i++) {
-            if (tutorías.get(i).getCódigo().equals(pCódigo)) {
-                tutorías.get(i).PasarLista(pCarné);
-                editarEstudianteJSON( pCarné,  edicion);
+                if (tutorías.get(i).getCódigo().equals(pCódigo)) {
+                    tutorías.get(i).PasarLista(pCarné);
+                    //editarEstudianteJSON( pCarné,  edicion);
+                }
             }
-        }
         }else{
-            editarEstudianteJSON( pCarné,  edicion);
+            //editarEstudianteJSON( pCarné,  edicion);
         }
     }
     public void habilitarAula(Aula A, Calendar Desde, Calendar Hasta){
@@ -691,9 +708,10 @@ public class Controlador {
     }
     public ArrayList<String> getListaSesiones(String codigo) {
         ArrayList<String> auxiliar = new ArrayList<>();
-        for(int i = 0; i < getTutoriaPorCodigo(codigo).getSesionesTotales(); i++) {
-           int numeroSesion = i + 1;
-           auxiliar.add("Sesión " + numeroSesion);
+        int sesionesRestantes = getTutoriaPorCodigo(codigo).getSesionesTotales() - getTutoriaPorCodigo(codigo).getSesiones();
+        for(int i = 0; i < sesionesRestantes; i++) {
+            int numeroSesion = i + 1 + getTutoriaPorCodigo(codigo).getSesiones();
+            auxiliar.add("Sesión " + numeroSesion);
         }
        return auxiliar;
     }
@@ -789,6 +807,17 @@ public class Controlador {
             }
         }
         return auxiliar.toArray(String[]::new);
+    }
+    public boolean isEstudianteMatriculado(String correo) {
+        return !obtenerEstudianteCorreo(correo).getMatriculadoEn().isEmpty();
+    }
+    public String getCarneConCorreo(String correo) {
+        for(Estudiante estudianteActual: estudiantes) {
+            if(estudianteActual.getCorreoEstudiantil().equals(correo)) {
+                return estudianteActual.getCarné();
+            }
+        }
+        return "";
     }
     public int verificarCrendecials(String pUsuario, String pContraseña){
         for (int i = 0; i < estudiantes.size(); i++) {

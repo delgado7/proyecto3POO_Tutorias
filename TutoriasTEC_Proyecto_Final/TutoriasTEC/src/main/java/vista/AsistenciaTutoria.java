@@ -18,7 +18,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    public static String correoActual = "mhidalgos0708@gmail.com";
+    public static String correoActual = "shidalgo@gmail.com";
     
     static String[] opcionesTutoriaLista = main.control.getListaCodigos(correoActual).toArray(String[]::new);
     HashMap<String, String[]> listaSesiones = new HashMap<>();
@@ -86,7 +86,6 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
-            //limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaAsistenciaTutoria(false);
         } else if(opcionesTutoria.equals(source)){
@@ -107,7 +106,6 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
             if(nombreTutoria.equals("") || nombreSesion == null || nombreSesion.equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una tutoría y una sesión.");
             } else {
-                //limpiarCampos();
                 String[] nombres = main.control.getListaEstudiantesTutoria(nombreTutoria).toArray(String[]::new);
                 if(nombres.length == 0) {
                     AsistenciaLista.checkBoxList.clear();

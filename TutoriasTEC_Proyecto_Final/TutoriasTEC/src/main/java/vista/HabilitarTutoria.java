@@ -222,11 +222,12 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");
             } else if(!campoVacio(e)) {
                 ArrayList<Estudiante> estudiantes = new ArrayList<>();
+                System.out.println(main.control.obtenerTutor(correosTutores.get(opcionesTutor.getSelectedIndex())).toString());
                 if(main.control.registrarTutoríaEnBase(main.control.obtenerTutor(correosTutores.get(opcionesTutor.getSelectedIndex())),
                                           codigoTutoria.getText(), (String) opcionesEscuela.getSelectedItem(),
                                           (String) opcionesMateria.getSelectedItem(), TModalidad.valueOf((String) opcionesModalidad.getSelectedItem()),
                                           (String) opcionesAula.getSelectedItem(), opcionesHorario.getText(), 25, Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[0]),
-                                          Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, false, estudiantes, 0, false)) {
+                                          Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, true, estudiantes, 0, false)) {
                     JOptionPane.showMessageDialog(this, "Tutoría guardada.");
                     main.control.prepararDiccionarios();
                     //limpiarCampos();

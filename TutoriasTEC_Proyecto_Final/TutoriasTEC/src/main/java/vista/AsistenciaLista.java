@@ -11,6 +11,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import javax.swing.JScrollPane;
+import java.util.HashMap;
 /**
  *
  * @author mhidalgos0708
@@ -87,21 +88,30 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
         }else if (botonConfirmar.equals(source)) {
             String carne;
             if(checkBoxList.size() > 0) {
+                int cantidadPresentes = 0;
+                HashMap<String, String> estadisticas = new HashMap<>();
                 for(int i = 0; i < checkBoxList.size(); i++) {
                     JCheckBox estudiante = checkBoxList.get(i);
                     carne = estudiante.getText().split("-")[0];
                     if(estudiante.isSelected()) {
                         main.control.PasarLista(tutoria.getText(), carne, true);
+                        cantidadPresentes++;
                     } else if(estudiante.equals(source) && !estudiante.isSelected()) {
                         main.control.PasarLista(tutoria.getText(), carne, false);
                     }
                 }
+                estadisticas.put("Asistencia Total", String.valueOf(cantidadPresentes));
+                estadisticas.put("Sesiones", sesion.getText().split(" ")[1]);
+                main.control.confirmarAsistenciaTutoría(tutoria.getText(), estadisticas);
                 JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
                 limpiarCampos();
                 Inicio.VentanaInicioTutor(true);
                 Inicio.VentanaAsistenciaLista(false);
             } else {
                 JOptionPane.showMessageDialog(this, "Lista de asistencia vacía.");
+                limpiarCampos();
+                Inicio.VentanaInicioTutor(true);
+                Inicio.VentanaAsistenciaLista(false);
             }
         }
     }

@@ -7,6 +7,9 @@ package vista;
 
 import java.util.HashMap;
 import javax.swing.JOptionPane;
+import java.util.Calendar;
+import Controlador.Utilitaria;
+import Modelo.TModalidad;
 
 /**
  *
@@ -18,7 +21,7 @@ public class ConsultarTutorias extends javax.swing.JFrame {
     HashMap<String, String[]> materiaTutorias = main.control.materiaTutorias;
     
     /**
-     * Creates new form RevisarEstadisticas
+     * Creates new form ConsultarTutorias
      */
     public ConsultarTutorias() {
         initComponents();
@@ -46,13 +49,20 @@ public class ConsultarTutorias extends javax.swing.JFrame {
         jComboBox4 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
+        tituloTutor = new javax.swing.JLabel();
+        tituloInicio = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
+        labelInicio = new javax.swing.JLabel();
+        labelTutor = new javax.swing.JLabel();
+        tituloFin = new javax.swing.JLabel();
+        tituloAula = new javax.swing.JLabel();
+        tituloModalidad = new javax.swing.JLabel();
+        tituloCupo = new javax.swing.JLabel();
+        labelAula = new javax.swing.JLabel();
+        labelModalidad = new javax.swing.JLabel();
+        labelCupo = new javax.swing.JLabel();
+        botonMatricular = new javax.swing.JButton();
+        labelFin = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -121,17 +131,36 @@ public class ConsultarTutorias extends javax.swing.JFrame {
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel6.setText("Ausencias: ");
+        tituloTutor.setText("Tutor:");
 
-        jLabel7.setText("Total de Asistencias:");
+        tituloInicio.setText("Inicio:");
 
-        jLabel8.setText("Porcentaje de Asistencia:");
+        labelInicio.setText(" ");
 
-        jLabel10.setText(" ");
+        labelTutor.setText(" ");
 
-        jLabel11.setText(" ");
+        tituloFin.setText("Fin:");
 
-        jLabel12.setText(" ");
+        tituloAula.setText("Aula:");
+
+        tituloModalidad.setText("Modalidad:");
+
+        tituloCupo.setText("Cupo:");
+
+        labelAula.setText(" ");
+
+        labelModalidad.setText(" ");
+
+        labelCupo.setText(" ");
+
+        botonMatricular.setText("Matricular");
+        botonMatricular.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonMatricularActionPerformed(evt);
+            }
+        });
+
+        labelFin.setText(" ");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -142,42 +171,86 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 6, Short.MAX_VALUE))
+                            .addComponent(tituloTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(tituloAula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tituloModalidad, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tituloCupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(tituloInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addComponent(jLabel9))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(labelTutor, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(labelInicio, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(labelFin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labelModalidad, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelAula, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(labelCupo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 134, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel9)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel12, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel11, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+                        .addComponent(tituloFin, javax.swing.GroupLayout.PREFERRED_SIZE, 29, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(botonMatricular)
+                .addGap(61, 61, 61))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
+                    .addComponent(tituloTutor)
+                    .addComponent(labelTutor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel9)
-                    .addComponent(jLabel12))
-                .addGap(18, 18, 18)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(tituloInicio)
+                        .addComponent(labelInicio)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(tituloFin)
+                    .addComponent(labelFin))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel7)
-                    .addComponent(jLabel10))
-                .addGap(18, 18, 18)
+                    .addComponent(tituloAula)
+                    .addComponent(labelAula))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(jLabel11))
-                .addContainerGap(46, Short.MAX_VALUE))
+                    .addComponent(tituloModalidad)
+                    .addComponent(labelModalidad))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tituloCupo)
+                    .addComponent(labelCupo))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(botonMatricular)
+                .addContainerGap())
         );
 
-        jLabel6.setVisible(false);
-        jLabel7.setVisible(false);
-        jLabel8.setVisible(false);
+        tituloTutor.setVisible(false);
+        tituloInicio.setVisible(false);
+        labelInicio.setVisible(false);
+        labelTutor.setVisible(false);
+        tituloFin.setVisible(false);
+        tituloAula.setVisible(false);
+        tituloModalidad.setVisible(false);
+        tituloCupo.setVisible(false);
+        labelAula.setVisible(false);
+        labelModalidad.setVisible(false);
+        labelCupo.setVisible(false);
+        botonMatricular.setVisible(false);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -194,18 +267,17 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addGap(33, 33, 33)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, 191, Short.MAX_VALUE)
+                            .addComponent(jComboBox1, 0, 195, Short.MAX_VALUE)
                             .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(47, 47, 47)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(44, 44, 44))
+                        .addGap(55, 55, 55)
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 95, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(36, 36, 36))))
+                        .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(36, 36, 36))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(214, 214, 214)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -236,10 +308,10 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel5)))
-                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(37, 37, 37)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(69, Short.MAX_VALUE))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -265,15 +337,29 @@ public class ConsultarTutorias extends javax.swing.JFrame {
         }
         else
         {
-            jLabel12.setText(main.control.getAusenciasTutoria((String)jComboBox4.getSelectedItem()));
-            jLabel10.setText(main.control.getTotalAsistencias((String)jComboBox4.getSelectedItem()));
-            jLabel11.setText(main.control.getPorcentajeAsistencia((String)jComboBox4.getSelectedItem()));
-            jLabel12.setVisible(true);
-            jLabel10.setVisible(true);
-            jLabel11.setVisible(true);
-            jLabel6.setVisible(true);
-            jLabel7.setVisible(true);
-            jLabel8.setVisible(true);
+            Calendar inicio = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getDesde();
+            Calendar fin = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getHasta();
+            TModalidad modalidad = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getModalidad();
+            int cupo = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getCupo();
+            labelTutor.setText(main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getTutor().getNombre());
+            labelInicio.setText(Utilitaria.formatoFecha(inicio));
+            labelFin.setText(Utilitaria.formatoFecha(fin));
+            labelAula.setText(main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getAula());
+            labelModalidad.setText(String.valueOf(modalidad));
+            labelCupo.setText(String.valueOf(cupo));
+            tituloTutor.setVisible(true);
+            tituloInicio.setVisible(true);
+            tituloFin.setVisible(true);
+            tituloAula.setVisible(true);
+            tituloModalidad.setVisible(true);
+            tituloCupo.setVisible(true);
+            labelTutor.setVisible(true);
+            labelInicio.setVisible(true);
+            labelFin.setVisible(true);
+            labelAula.setVisible(true);
+            labelModalidad.setVisible(true);
+            labelCupo.setVisible(true);
+            botonMatricular.setVisible(true);
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -301,12 +387,19 @@ public class ConsultarTutorias extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        jLabel12.setVisible(false);
-        jLabel10.setVisible(false);
-        jLabel11.setVisible(false);
-        jLabel6.setVisible(false);
-        jLabel7.setVisible(false);
-        jLabel8.setVisible(false);
+        tituloTutor.setVisible(false);
+        tituloInicio.setVisible(false);
+        tituloFin.setVisible(false);
+        tituloAula.setVisible(false);
+        tituloModalidad.setVisible(false);
+        tituloCupo.setVisible(false);
+        labelTutor.setVisible(false);
+        labelInicio.setVisible(false);
+        labelFin.setVisible(false);
+        labelAula.setVisible(false);
+        labelModalidad.setVisible(false);
+        labelCupo.setVisible(false);
+        botonMatricular.setVisible(false);
         Inicio.VentanaConsultarTutorias(false);
         Inicio.VentanaInicioEstudiante(true);
     }//GEN-LAST:event_jButton2ActionPerformed
@@ -314,6 +407,27 @@ public class ConsultarTutorias extends javax.swing.JFrame {
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox4ActionPerformed
+
+    private void botonMatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatricularActionPerformed
+        // TODO add your handling code here:
+        String correo = "joelmora@gmail.com";
+        HashMap<String, String> matricularEn = new HashMap<>();
+        if(!main.control.isEstudianteMatriculado(correo)) {
+            if(main.control.agregarEstudianteATutoría((String)jComboBox4.getSelectedItem(), main.control.obtenerEstudianteCorreo(correo))) {
+                matricularEn.put("matriculadoEn", (String)jComboBox4.getSelectedItem());
+                main.control.editarEstudianteJSON(main.control.getCarneConCorreo(correo), matricularEn);
+                JOptionPane.showMessageDialog(this, "Estudiante matriculado exitosamente.");
+                Inicio.VentanaConsultarTutorias(false);
+                Inicio.VentanaInicioEstudiante(true);
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al matricular estudiante.");
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, "El estudiante ya está matriculado en una tutoría.");
+            Inicio.VentanaConsultarTutorias(false);
+            Inicio.VentanaInicioEstudiante(true);
+        }
+    }//GEN-LAST:event_botonMatricularActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,13 +446,13 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(RevisarEstadisticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarTutorias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(RevisarEstadisticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarTutorias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(RevisarEstadisticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarTutorias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(RevisarEstadisticas.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarTutorias.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
@@ -346,12 +460,13 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new RevisarEstadisticas().setVisible(true);
+                new ConsultarTutorias().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonMatricular;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     public javax.swing.JComboBox<String> jComboBox1;
@@ -359,19 +474,25 @@ public class ConsultarTutorias extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox3;
     private static javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private static javax.swing.JLabel jLabel6;
-    private static javax.swing.JLabel jLabel7;
-    private static javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private static javax.swing.JPanel jPanel2;
+    private javax.swing.JLabel labelAula;
+    private javax.swing.JLabel labelCupo;
+    private javax.swing.JLabel labelFin;
+    private javax.swing.JLabel labelInicio;
+    private javax.swing.JLabel labelModalidad;
+    private javax.swing.JLabel labelTutor;
+    private javax.swing.JLabel tituloAula;
+    private javax.swing.JLabel tituloCupo;
+    private javax.swing.JLabel tituloFin;
+    private static javax.swing.JLabel tituloInicio;
+    private javax.swing.JLabel tituloModalidad;
+    private static javax.swing.JLabel tituloTutor;
     // End of variables declaration//GEN-END:variables
 
 }

@@ -42,8 +42,9 @@ public class Estudiante extends Persona{
         this.matriculadoEn = matriculadoEn;
     }
 
-    
-    
+    public String getMatriculadoEn() {
+        return this.matriculadoEn;
+    }
 
     public String getCarné() {
         return carné;

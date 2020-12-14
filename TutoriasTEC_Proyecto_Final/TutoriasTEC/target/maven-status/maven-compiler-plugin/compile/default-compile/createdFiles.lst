@@ -29,6 +29,7 @@ vista\HabilitarAula$4.class
 vista\InicioAdmin.class
 Modelo\Estudiante.class
 Modelo\Tutoría.class
+vista\ConsultarTutorias$8.class
 Controlador\Administrador.class
 Controlador\Utilitaria.class
 vista\ConsultarTutorias.class
