@@ -34,7 +34,7 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
 
     JTextField TextFieldNombre = new JTextField();
     JTextField TextFieldCorreo = new JTextField();
-    JTextField TextFieldContraseña = new JTextField();
+    JPasswordField TextFieldContraseña = new JPasswordField();
     String modalidadSeleccionada = "";
     String materiaSeleccionada = "";
 

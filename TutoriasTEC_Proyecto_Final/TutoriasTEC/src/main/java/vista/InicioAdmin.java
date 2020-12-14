@@ -59,7 +59,8 @@ public final class InicioAdmin extends JFrame implements ActionListener{
     {
 
         if (e.getSource() == botonCerrarSesion) {
-            //Inicio.VentanaInicioAdmin(false);
+            Inicio.VentanaInicioAdmin(false);
+            Inicio.VentanaBienvenida(true);
         }
         if(e.getSource() == botonHabilitarAula)
         {

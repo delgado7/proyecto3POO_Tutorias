@@ -25,7 +25,11 @@ public class Inicio {
     static RegistrarTutor frameRegistrarTutor;
     static RevisarEstadisticas frameRevisarEstadisticas;
     static HabilitarAula frameHabilitarAula;
-    static MenuPrincipal frameMenuPrincipal;
+    static Bienvenida frameBienvenida;
+    static RegistroEstudiante frameRegistroEstudiante;
+    static IniciarSesion frameIniciarSesion;
+    static InicioEstudiante frameInicioEstudiante;
+    static ConsultarTutorias frameConsultarTutorias;
     
     public static void VentanaInicioTutor(boolean visibilidad) {
         frameInicioTutor.setTitle("Tutorías TEC - Tutor");
@@ -117,14 +121,59 @@ public class Inicio {
         frameHabilitarAula.setIconImage(img.getImage());
     }
     
-    public static void VentanaMenuPrincipal(boolean visibilidad) {
-        frameMenuPrincipal.setTitle("Tutorías TEC - Menú principal");
-        frameMenuPrincipal.setVisible(visibilidad);
-        frameMenuPrincipal.setBounds(560, 140, 600, 400);
-        center(frameMenuPrincipal);
-        frameMenuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frameMenuPrincipal.setResizable(false);
-        frameMenuPrincipal.setIconImage(img.getImage());
+    public static void VentanaBienvenida(boolean visibilidad) {
+        frameBienvenida.setTitle("Tutorías TEC");
+        frameBienvenida.setVisible(visibilidad);
+        frameBienvenida.setBounds(560, 140, 600, 400);
+        center(frameBienvenida);
+        frameBienvenida.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameBienvenida.getContentPane().setBackground(Color.white);
+        frameBienvenida.setResizable(false);
+        frameBienvenida.setIconImage(img.getImage());
+    }
+    
+    public static void VentanaRegistroEstudiante(boolean visibilidad) {
+        frameRegistroEstudiante.setTitle("Tutorías TEC");
+        frameRegistroEstudiante.setVisible(visibilidad);
+        frameRegistroEstudiante.setBounds(560, 140, 600, 400);
+        center(frameRegistroEstudiante);
+        frameRegistroEstudiante.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameRegistroEstudiante.getContentPane().setBackground(Color.white);
+        frameRegistroEstudiante.setResizable(false);
+        frameRegistroEstudiante.setIconImage(img.getImage());
+    }
+    
+    public static void VentanaIniciarSesion(boolean visibilidad) {
+        frameIniciarSesion.setTitle("Tutorías TEC");
+        frameIniciarSesion.setVisible(visibilidad);
+        frameIniciarSesion.setBounds(560, 140, 600, 400);
+        center(frameIniciarSesion);
+        frameIniciarSesion.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameIniciarSesion.getContentPane().setBackground(Color.white);
+        frameIniciarSesion.setResizable(false);
+        frameIniciarSesion.setIconImage(img.getImage());
+    }
+    
+    public static void VentanaInicioEstudiante(boolean visibilidad) {
+        frameInicioEstudiante.setTitle("Tutorías TEC - Estudiante");
+        frameInicioEstudiante.setVisible(visibilidad);
+        frameInicioEstudiante.setBounds(560, 140, 600, 400);
+        center(frameInicioEstudiante);
+        frameInicioEstudiante.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameInicioEstudiante.getContentPane().setBackground(Color.white);
+        frameInicioEstudiante.setResizable(false);
+        frameInicioEstudiante.setIconImage(img.getImage());
+    }
+    
+    public static void VentanaConsultarTutorias(boolean visibilidad) {
+        frameConsultarTutorias.setTitle("Tutorías TEC - Consulta");
+        frameConsultarTutorias.setVisible(visibilidad);
+        frameConsultarTutorias.setBounds(560, 140, 600, 400);
+        center(frameConsultarTutorias);
+        frameConsultarTutorias.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frameConsultarTutorias.getContentPane().setBackground(Color.white);
+        frameConsultarTutorias.setResizable(false);
+        frameConsultarTutorias.setIconImage(img.getImage());
     }
     
     public static void center(JFrame J) {

@@ -14,7 +14,11 @@ import static vista.Inicio.frameInicioAdmin;
 import static vista.Inicio.frameRegistrarTutor;
 import static vista.Inicio.frameRevisarEstadisticas;
 import static vista.Inicio.frameHabilitarAula;
-import static vista.Inicio.frameMenuPrincipal;
+import static vista.Inicio.frameBienvenida;
+import static vista.Inicio.frameRegistroEstudiante;
+import static vista.Inicio.frameIniciarSesion;
+import static vista.Inicio.frameInicioEstudiante;
+import static vista.Inicio.frameConsultarTutorias;
 import Controlador.*;
 
 /**
@@ -42,8 +46,12 @@ public class main {
         frameRegistrarTutor = new RegistrarTutor();
         frameRevisarEstadisticas = new RevisarEstadisticas();
         frameHabilitarAula = new HabilitarAula();
-        frameMenuPrincipal = new MenuPrincipal();
+        frameBienvenida = new Bienvenida();
+        frameRegistroEstudiante = new RegistroEstudiante();
+        frameIniciarSesion = new IniciarSesion();
+        frameInicioEstudiante = new InicioEstudiante();
+        frameConsultarTutorias = new ConsultarTutorias();
         
-        Inicio.VentanaMenuPrincipal(true);
+        Inicio.VentanaBienvenida(true);
     }
 }

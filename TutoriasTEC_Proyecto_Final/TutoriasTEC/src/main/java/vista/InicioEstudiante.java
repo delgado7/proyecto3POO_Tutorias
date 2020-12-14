@@ -13,16 +13,15 @@ import java.awt.event.ActionListener;
  *
  * @author mhidalgos0708
  */
-public final class InicioTutor extends JFrame implements ActionListener {
+public final class InicioEstudiante extends JFrame implements ActionListener {
     
     Container container = getContentPane();
 
-    JLabel mensajeInicio = new JLabel("Bienvenido tutor ");
+    JLabel mensajeInicio = new JLabel("Bienvenido estudiante ");
     JButton botonSalir = new JButton("Cerrar sesión");
-    JButton botonAsistencia = new JButton("Revisar asistencia");
-    JButton botonTutoria = new JButton("Registrar tutoría");
+    JButton botonConsulta = new JButton("Consultar tutorías");
 
-    InicioTutor() {
+    InicioEstudiante() {
         setLayoutManager();
         setLocationAndSize();
         addComponentsToContainer();
@@ -36,21 +35,18 @@ public final class InicioTutor extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         mensajeInicio.setBounds(50, 25, 150, 30);
         botonSalir.setBounds(430, 25, 100, 30);
-        botonAsistencia.setBounds(225, 125, 150, 30);
-        botonTutoria.setBounds(225, 175, 150, 30);
+        botonConsulta.setBounds(225, 125, 150, 30);
     }
 
     public void addComponentsToContainer() {
         container.add(mensajeInicio);
         container.add(botonSalir);
-        container.add(botonAsistencia);
-        container.add(botonTutoria);
+        container.add(botonConsulta);
     }
 
     public void addActionEvent() {
         botonSalir.addActionListener(this);
-        botonAsistencia.addActionListener(this);
-        botonTutoria.addActionListener(this);
+        botonConsulta.addActionListener(this);
     }
 
     @Override
@@ -58,13 +54,10 @@ public final class InicioTutor extends JFrame implements ActionListener {
         Object source = e.getSource();
         if (botonSalir.equals(source)) {
             Inicio.VentanaBienvenida(true);
-            Inicio.VentanaInicioTutor(false);
-        } else if (botonAsistencia.equals(source)) {
-            Inicio.VentanaAsistenciaTutoria(true);
-            Inicio.VentanaInicioTutor(false);
-        } else if (botonTutoria.equals(source)) {
-            Inicio.VentanaHabilitarTutoria(true);
-            Inicio.VentanaInicioTutor(false);
+            Inicio.VentanaInicioEstudiante(false);
+        } else if (botonConsulta.equals(source)) {
+            Inicio.VentanaConsultarTutorias(true);
+            Inicio.VentanaInicioEstudiante(false);
         }
     }
 }
