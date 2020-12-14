@@ -422,11 +422,9 @@ public class Controlador {
     */
     
     public boolean agregarEstudianteATutoría(String cod, Estudiante estudianteActual){
-        
         try{
             Tutoría tutoríaActual = obtenerTutoría(cod);
             tutoríaActual.matricularEstudiante(estudianteActual);
-
             JSONParser jsonParser = new JSONParser();
 
             try (FileReader reader = new FileReader("Tutoría.json")) {
@@ -466,7 +464,6 @@ public class Controlador {
             return false;
         }
     }
-    
     public boolean registrarEstudianteEnBase(String carné, String correoEstudiantil, String contraseña, String matriculadoEn, String nombre, boolean lectura){
         if(obtenerEstudiante(carné) == null) {
             Estudiante nuevoEstudiante = new Estudiante( carné,  correoEstudiantil,  contraseña,  matriculadoEn,  nombre,  "Estudiante");
@@ -479,7 +476,7 @@ public class Controlador {
         }
         return false;
     }
-      public boolean registrarAulaEnBase(Calendar Desde, Calendar Hasta, String id, boolean reservada, boolean lectura){
+    public boolean registrarAulaEnBase(Calendar Desde, Calendar Hasta, String id, boolean reservada, boolean lectura){
         if(obtenerAula(id) == null) {
             Aula nuevaAula = new Aula(Desde, Hasta, id, reservada);
             
@@ -492,7 +489,7 @@ public class Controlador {
         }
         return false;
     }
-     public Estudiante obtenerEstudiante(String pId)
+    public Estudiante obtenerEstudiante(String pId)
     {
         Estudiante elCliente;
         for(int i = 0; i < estudiantes.size(); i++)
@@ -505,7 +502,7 @@ public class Controlador {
         }
         return null;
     }
-      public Aula obtenerAula(String pId)
+    public Aula obtenerAula(String pId)
     {
         Aula elCliente;
         for(int i = 0; i < aulas.size(); i++)
@@ -518,7 +515,7 @@ public class Controlador {
         }
         return null;
     }
-     public Tutor obtenerTutor(String pId)
+    public Tutor obtenerTutor(String pId)
     {
         Tutor elCliente;
         for(int i = 0; i < tutores.size(); i++)
@@ -531,7 +528,7 @@ public class Controlador {
         }
         return null;
     }
-     public Tutoría obtenerTutoría(String pCod)
+    public Tutoría obtenerTutoría(String pCod)
     {
         Tutoría LaTutoría;
         for(int i = 0; i < tutorías.size(); i++)
@@ -544,14 +541,10 @@ public class Controlador {
         }
         return null;
     }
-     
-     
-
     public boolean registrarTutorEnBase(TModalidad modalidad, String materiaTutoría, String correoEstudinatil, String contraseña, String nombre, boolean lectura){
         if(obtenerTutor(correoEstudinatil) == null) {
             Tutor nuevoTutor = new Tutor(modalidad, materiaTutoría, correoEstudinatil, contraseña, nombre);
             tutores.add(nuevoTutor);
-            
             if(!lectura) {
                 agregarInformacionJSON("Tutor.json","Tutor");
             }
@@ -559,14 +552,10 @@ public class Controlador {
         }
         return false;
     }
-
     public boolean registrarTutoríaEnBase(Tutor tutor, String código, String escuela, String materia, TModalidad modalidad, String aula, String horario, int cupo, Calendar desde, Calendar hasta, int sesionesTotales, int asistenciaTotal, boolean enCursoActualmente, ArrayList<Estudiante> EstudiantesMatriculados, int sesiones, boolean lectura){
-
-        
         if(obtenerTutoría(código) == null) {
             Tutoría nuevaTutoría = new Tutoría(tutor, código, escuela, materia, modalidad, aula, horario, cupo, desde, hasta, sesionesTotales, asistenciaTotal, enCursoActualmente, EstudiantesMatriculados, sesiones);
             tutorías.add(nuevaTutoría);
-            
             if(!lectura) {
                 agregarInformacionJSON("Tutoría.json","Tutoría");
             }
@@ -574,7 +563,6 @@ public class Controlador {
         }
         return false;
     }
-
     public Estudiante getEstudiante(String carné){
         for (Estudiante E: estudiantes){
             if(E.getCarné().equals(carné))
@@ -593,14 +581,12 @@ public class Controlador {
                 return T;
         }return null;
     }
-
     public Aula getAula(String id){
         for (Aula A: aulas){
             if(A.getId().equals(id))
                 return A;
         }return null;
     }
-
     public int getAsistenciasPeriodicas(String code){
         for (int i = 0; i < tutorías.size(); i++) {
             if(tutorías.get(i).getCódigo().equals(code))
@@ -621,9 +607,7 @@ public class Controlador {
         }else{
             editarEstudianteJSON( pCarné,  edicion);
         }
-        
     }
-
     public void habilitarAula(Aula A, Calendar Desde, Calendar Hasta){
         HashMap edicion= new HashMap();
         if (!A.isReservada()){
@@ -640,58 +624,55 @@ public class Controlador {
             editarAulaJSON(A.getId(),  edicion);
         }     
     }
-   public ArrayList<Estudiante> getListaEstudiantes(){
+    public ArrayList<Estudiante> getListaEstudiantes(){
         return estudiantes;
     }
-   public ArrayList<Tutor> getListaTutores(){
+    public ArrayList<Tutor> getListaTutores(){
        return tutores;
-   }
-  public ArrayList<Tutoría> getListaTutoríasPorEscuela(String pEscuela){
-      ArrayList<Tutoría> auxiliar = new ArrayList();
-       for (int i = 0; i < tutorías.size(); i++) {
-           if (tutorías.get(i).getEscuela().equals(pEscuela)) {
+    }
+    public ArrayList<Tutoría> getListaTutoríasPorEscuela(String pEscuela){
+        ArrayList<Tutoría> auxiliar = new ArrayList();
+        for (int i = 0; i < tutorías.size(); i++) {
+            if (tutorías.get(i).getEscuela().equals(pEscuela)) {
                auxiliar.add(tutorías.get(i));
-           }
-      }
-      return auxiliar;
-   }
-  
-  public ArrayList<Tutoría> getListaTutoríasPorMateria(String pMateria){
-      ArrayList<Tutoría> auxiliar = new ArrayList();
-       for (int i = 0; i < tutorías.size(); i++) {
-           if (tutorías.get(i).getMateria().equals(pMateria)) {
+            }
+        }
+        return auxiliar;
+    }
+    public ArrayList<Tutoría> getListaTutoríasPorMateria(String pMateria){
+        ArrayList<Tutoría> auxiliar = new ArrayList();
+        for (int i = 0; i < tutorías.size(); i++) {
+            if (tutorías.get(i).getMateria().equals(pMateria)) {
+                auxiliar.add(tutorías.get(i));
+            }
+        }
+        return auxiliar;
+    }
+    public ArrayList<Tutoría> getListaTutoríasPorModalidad(String pModalidad){
+        ArrayList<Tutoría> auxiliar = new ArrayList();
+        for (int i = 0; i < tutorías.size(); i++) {
+            if (tutorías.get(i).getModalidad().toString().equals(pModalidad)) {
                auxiliar.add(tutorías.get(i));
-           }
-      }
-      return auxiliar;
-   }
-  
-   public ArrayList<Tutoría> getListaTutoríasPorModalidad(String pModalidad){
-      ArrayList<Tutoría> auxiliar = new ArrayList();
-       for (int i = 0; i < tutorías.size(); i++) {
-           if (tutorías.get(i).getModalidad().toString().equals(pModalidad)) {
-               auxiliar.add(tutorías.get(i));
-           }
-      }
-      return auxiliar;
-   }
-   
-   public ArrayList<Tutoría> getListaTutoríasPorCódigo(String pCódigo){
-      ArrayList<Tutoría> auxiliar = new ArrayList();
-       for (int i = 0; i < tutorías.size(); i++) {
-           if (tutorías.get(i).getCódigo().equals(pCódigo)) {
-               auxiliar.add(tutorías.get(i));
-           }
-      }
-      return auxiliar;
-   }
-   public ArrayList<Tutoría> getListaTutorías(){
-       return tutorías;
-   }
-   public ArrayList<Aula> getListaAula(){
-       return aulas;
-   }
-   public ArrayList<String> getListaCodigos(String correo) {
+            }
+        }
+        return auxiliar;
+    }
+    public ArrayList<Tutoría> getListaTutoríasPorCódigo(String pCódigo){
+        ArrayList<Tutoría> auxiliar = new ArrayList();
+        for (int i = 0; i < tutorías.size(); i++) {
+            if (tutorías.get(i).getCódigo().equals(pCódigo)) {
+                auxiliar.add(tutorías.get(i));
+            }
+        }
+        return auxiliar;
+    }
+    public ArrayList<Tutoría> getListaTutorías(){
+        return tutorías;
+    }
+    public ArrayList<Aula> getListaAula(){
+        return aulas;
+    }
+    public ArrayList<String> getListaCodigos(String correo) {
         ArrayList<String> auxiliar = new ArrayList<>();
         for (int i = 0; i < tutorías.size(); i++) {
             if(tutorías.get(i).getTutor().getCorreoEstudiantil().equals(correo)) {
@@ -699,115 +680,114 @@ public class Controlador {
             }
         }
         return auxiliar;
-   }
-   public Tutoría getTutoriaPorCodigo(String codigo) {
-       for(int i = 0; i < tutorías.size(); i++) {
-           if(tutorías.get(i).getCódigo().equals(codigo)) {
+    }
+    public Tutoría getTutoriaPorCodigo(String codigo) {
+        for(int i = 0; i < tutorías.size(); i++) {
+            if(tutorías.get(i).getCódigo().equals(codigo)) {
                return tutorías.get(i);
-           }
-       }
-       return null;
-   }
-   public ArrayList<String> getListaSesiones(String codigo) {
-       ArrayList<String> auxiliar = new ArrayList<>();
-       for(int i = 0; i < getTutoriaPorCodigo(codigo).getSesionesTotales(); i++) {
+            }
+        }
+        return null;
+    }
+    public ArrayList<String> getListaSesiones(String codigo) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(int i = 0; i < getTutoriaPorCodigo(codigo).getSesionesTotales(); i++) {
            int numeroSesion = i + 1;
            auxiliar.add("Sesión " + numeroSesion);
-       }
+        }
        return auxiliar;
-   }
-   public ArrayList<String> getListaEstudiantesTutoria(String codigo) {
-       ArrayList<String> auxiliar = new ArrayList<>();
-       for(Estudiante estudianteActual : getTutoriaPorCodigo(codigo).getEstudiantesMatriculados()) {
+    }
+    public ArrayList<String> getListaEstudiantesTutoria(String codigo) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Estudiante estudianteActual : getTutoriaPorCodigo(codigo).getEstudiantesMatriculados()) {
            auxiliar.add(estudianteActual.getCarné() + "-" + estudianteActual.getNombre());
-       }
+        }
        return auxiliar;
-   }
-   public ArrayList<String> getListaCorreosTutores() {
-       ArrayList<String> auxiliar = new ArrayList<>();
-       for(Tutor tutorActual: tutores) {
-           auxiliar.add(tutorActual.getCorreoEstudiantil());
-       }
-       return auxiliar;
-   }
-   public ArrayList<String> getListaNombresTutores() {
-       ArrayList<String> auxiliar = new ArrayList<>();
-       for(Tutor tutorActual: tutores) {
-           auxiliar.add(tutorActual.getNombre());
-       }
-       return auxiliar;
-   }
-   public ArrayList<String> getListaNombresEscuelas() {
-       return escuelas;
-   }
-   public ArrayList<String> getListaNombresAulas() {
+    }
+    public ArrayList<String> getListaCorreosTutores() {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Tutor tutorActual: tutores) {
+            auxiliar.add(tutorActual.getCorreoEstudiantil());
+        }
+        return auxiliar;
+    }
+    public ArrayList<String> getListaNombresTutores() {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Tutor tutorActual: tutores) {
+            auxiliar.add(tutorActual.getNombre());
+        }
+        return auxiliar;
+    }
+    public ArrayList<String> getListaNombresEscuelas() {
+        return escuelas;
+    }
+    public ArrayList<String> getListaNombresAulas() {
         ArrayList<String> auxiliar = new ArrayList<>();
         for(Aula aulaActual: aulas) {
            auxiliar.add(aulaActual.getId());
         }
         return auxiliar;
-   }
-   public String getHorarioAula(String id) {
+    }
+    public String getHorarioAula(String id) {
         for(Aula aulaActual: aulas) {
             if(aulaActual.getId().equals(id)) {
                 return Utilitaria.formatoFecha(aulaActual.getDesde()) + " - " + Utilitaria.formatoFecha(aulaActual.getHasta());
             }
         }
         return "";
-   }
-   public void prepararDiccionarios() {
-       escuelaMaterias.put("Computación", materiasComputacionDefault);
-       escuelaMaterias.put("Matemática", materiasMatematicasDefault);
-       for(String materia: materiasDefault) {
-           materiaTutorias.put(materia, getTutoriasPorMateria(materia).toArray(String[]::new));
-       }
-   }
-   public ArrayList<String> getTutoriasPorMateria(String materia) {
-       ArrayList<String> auxiliar = new ArrayList<>();
-       for(Tutoría tutoriaActual: tutorías) {
-           if(tutoriaActual.getMateria().equals(materia)) {
-               auxiliar.add(tutoriaActual.getCódigo());
-           }
-       }
-       return auxiliar;
-   }
-   public int verificarCrendecials(String pUsuario, String pContraseña){
-       for (int i = 0; i < estudiantes.size(); i++) {
-           if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {
+    }
+    public void prepararDiccionarios() {
+        escuelaMaterias.put("Computación", materiasComputacionDefault);
+        escuelaMaterias.put("Matemática", materiasMatematicasDefault);
+        for(String materia: materiasDefault) {
+            materiaTutorias.put(materia, getTutoriasPorMateria(materia).toArray(String[]::new));
+        }
+    }
+    public ArrayList<String> getTutoriasPorMateria(String materia) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Tutoría tutoriaActual: tutorías) {
+            if(tutoriaActual.getMateria().equals(materia)) {
+                auxiliar.add(tutoriaActual.getCódigo());
+            }
+        }
+        return auxiliar;
+    }
+    public String getAusenciasTutoria(String codigo) {
+        return Integer.toString(getTutoriaPorCodigo(codigo).getAusencias());
+    }
+    public String getTotalAsistencias(String codigo) {
+        return Integer.toString(getTutoriaPorCodigo(codigo).getAsistenciaTotal());
+    }
+    public String getPorcentajeAsistencia(String codigo) {
+        return Double.toString(getTutoriaPorCodigo(codigo).getPorcentajeAsistencia());
+    }
+    public int verificarCrendecials(String pUsuario, String pContraseña){
+        for (int i = 0; i < estudiantes.size(); i++) {
+            if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {
                estudiantes.get(i).setActive(true);
                return 1;
-           }
-       }
-       for(int i=0; i< tutores.size(); i++){
+            }
+        }
+        for(int i=0; i< tutores.size(); i++){
             if (pUsuario.equals(getUsername(tutores.get(i).getCorreoEstudiantil())) && pContraseña.equals(tutores.get(i).getContraseña())) {
                tutores.get(i).setActive(true);
                return 2;
-           }
-       }
-           
-        if (pUsuario.equals("usuarioAdmin") && pContraseña.equals("contraseñaAdmin")) {
-               
-               return 3;
-           }
-       
-      return -1;
-   }
-   
-   public String getUsername(String parametro){
+            }
+        } 
+        if (pUsuario.equals("usuarioAdmin") && pContraseña.equals("contraseñaAdmin")) { 
+            return 3;
+        }
+        return -1;
+    }
+    public String getUsername(String parametro){
         String[] username = parametro.split("@", 2); 
         return username[0];
     }
-       public boolean verificarCorreo(String correo)
+    public boolean verificarCorreo(String correo)
     {
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
                        + "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
- 
         Matcher comparador = patron.matcher(correo);
         return comparador.find();
     }
-    
-    
-    
-
-
 }

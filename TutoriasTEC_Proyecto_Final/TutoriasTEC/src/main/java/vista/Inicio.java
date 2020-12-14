@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  * @author mhidalgos0708
  */
 public class Inicio {
-    
+
     static Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
     static ImageIcon img = new ImageIcon("src\\main\\java\\img\\icon.png");
 

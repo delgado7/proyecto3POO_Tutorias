@@ -18,20 +18,19 @@ import javax.swing.JScrollPane;
 public final class AsistenciaLista extends JFrame implements ActionListener {
     
     Container container = getContentPane();
-    
-    static String codigoActual = "FOC34";
-    static String[] nombres = main.control.getListaEstudiantesTutoria(codigoActual).toArray(String[]::new);
-    JLabel mensajeTitulo = new JLabel("Asistencia sesión X tutoría XXXXX ");
+   
+    JLabel mensajeTituloParte1 = new JLabel("Asistencia");
+    JLabel mensajeTituloParte2 = new JLabel("tutoría");
+    static JLabel sesion = new JLabel();
+    static JLabel tutoria = new JLabel();
     JButton botonAtras = new JButton("Atrás");
-    JPanel lista = new JPanel();
+    static JPanel lista = new JPanel();
     JScrollPane listaEstudiantes = new JScrollPane(lista, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
     JButton botonConfirmar = new JButton("Confirmar");
-    ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
-    ArrayList<String> checkBoxSelected = new ArrayList<>();
+    static ArrayList<JCheckBox> checkBoxList = new ArrayList<>();
 
     AsistenciaLista() {
         setLayoutManager();
-        createCheckBoxes();
         setLocationAndSize();
         addComponentsToContainer();
         addActionEvent();
@@ -41,24 +40,22 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
         container.setLayout(null);
         lista.setLayout(new BoxLayout(lista, BoxLayout.Y_AXIS));
     }
-    
-    public void createCheckBoxes() {
-        for(int i = 0; i < nombres.length; i++) {
-            JCheckBox estudiante = new JCheckBox(nombres[i]);
-            checkBoxList.add(estudiante);
-            lista.add(estudiante);
-        }
-    }
-
+        
     public void setLocationAndSize() {
-        mensajeTitulo.setBounds(50, 25, 300, 30);
-        botonAtras.setBounds(430, 25, 100, 30);
+        mensajeTituloParte1.setBounds(50, 25, 100, 30);
+        sesion.setBounds(110, 25, 100, 30);
+        mensajeTituloParte2.setBounds(170, 25, 100, 30);
+        tutoria.setBounds(230, 25, 100, 30);
+        botonAtras.setBounds(390, 25, 100, 30);
         listaEstudiantes.setBounds(150, 100, 300, 100);
         botonConfirmar.setBounds(225, 250, 150, 30);
     }
 
     public void addComponentsToContainer() {
-        container.add(mensajeTitulo);
+        container.add(mensajeTituloParte1);
+        container.add(sesion);
+        container.add(mensajeTituloParte2);
+        container.add(tutoria);
         container.add(botonAtras);
         container.add(listaEstudiantes);
         container.add(botonConfirmar);
@@ -88,19 +85,20 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
             Inicio.VentanaAsistenciaTutoria(true);
             Inicio.VentanaAsistenciaLista(false);
         }else if (botonConfirmar.equals(source)) {
+            String carne;
+            for(int i = 0; i < checkBoxList.size(); i++) {
+                JCheckBox estudiante = checkBoxList.get(i);
+                carne = estudiante.getText().split("-")[0];
+                if(estudiante.isSelected()) {
+                    main.control.PasarLista(tutoria.getText(), carne, true);
+                } else if(estudiante.equals(source) && !estudiante.isSelected()) {
+                    main.control.PasarLista(tutoria.getText(), carne, false);
+                }
+            }
             JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
             limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaAsistenciaLista(false);
-        } else {
-            for(int i = 0; i < checkBoxList.size(); i++) {
-                JCheckBox estudiante = checkBoxList.get(i);
-                if(estudiante.equals(source) && estudiante.isSelected()) {
-                    checkBoxSelected.add(estudiante.getText());
-                } else if(estudiante.equals(source) && !estudiante.isSelected()) {
-                    checkBoxSelected.remove(i);
-                }
-            }
         }
     }
 }

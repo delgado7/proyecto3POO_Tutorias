@@ -18,7 +18,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    static String correoActual = "gmail";
+    public static String correoActual = "gmail";
     
     static String[] opcionesTutoriaLista = main.control.getListaCodigos(correoActual).toArray(String[]::new);
     HashMap<String, String[]> listaSesiones = new HashMap<>();
@@ -27,10 +27,10 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     JButton botonAtras = new JButton("Atrás");
     JLabel tituloTutoria = new JLabel("Tutoría");
     JLabel tituloSesion = new JLabel("Sesión");
-    JComboBox<String> opcionesTutoria = new JComboBox<>(opcionesTutoriaLista);
+    static JComboBox<String> opcionesTutoria = new JComboBox<>(opcionesTutoriaLista);
     JComboBox<String> opcionesSesion = new JComboBox<>();
     JButton botonAsistencia = new JButton("Revisar asistencia");
-    String nombreTutoria = "";
+    static String nombreTutoria = "";
     String nombreSesion = "";
 
     AsistenciaTutoria() {
@@ -107,7 +107,20 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
             if(nombreTutoria.equals("") || nombreSesion == null || nombreSesion.equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una tutoría y una sesión.");
             } else {
-                limpiarCampos();
+                //limpiarCampos();
+                String[] nombres = main.control.getListaEstudiantesTutoria(nombreTutoria).toArray(String[]::new);
+                if(nombres.length == 0) {
+                    AsistenciaLista.checkBoxList.clear();
+                    AsistenciaLista.lista.removeAll();
+                } else {
+                    for(int i = 0; i < nombres.length; i++) {
+                        JCheckBox estudiante = new JCheckBox(nombres[i]);
+                        AsistenciaLista.checkBoxList.add(estudiante);
+                        AsistenciaLista.lista.add(estudiante);
+                    }
+                }
+                AsistenciaLista.sesion.setText(nombreSesion);
+                AsistenciaLista.tutoria.setText(nombreTutoria);
                 Inicio.VentanaAsistenciaLista(true);
                 Inicio.VentanaAsistenciaTutoria(false);
             }
