@@ -42,6 +42,6 @@ public class main {
         frameRevisarEstadisticas = new RevisarEstadisticas();
         frameHabilitarAula = new HabilitarAula();
         
-        Inicio.VentanaInicioAdmin(true);
+        Inicio.VentanaInicioTutor(true);
     }
 }

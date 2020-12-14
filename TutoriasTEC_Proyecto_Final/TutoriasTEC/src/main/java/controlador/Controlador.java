@@ -24,7 +24,7 @@ public class Controlador {
     ArrayList<String> materias = new ArrayList<>();
     ArrayList<Tutoría> tutorías = new ArrayList<>();
     ArrayList<Aula> aulas = new ArrayList<>();
-    public String [] aulasDefault = {"1"};
+    public String [] aulasDefault = {"1", "2", "3", "4"};
     public String [] escuelasDefault = {"", "Computación", "Matemática"};
     public String [] materiasComputacionDefault = {"", "Fundamentos", "Intro Taller"};
     public String [] materiasMatematicasDefault = {"", "Discreta", "General"};
@@ -763,7 +763,33 @@ public class Controlador {
     public String getPorcentajeAsistencia(String codigo) {
         return Double.toString(getTutoriaPorCodigo(codigo).getPorcentajeAsistencia());
     }
-    
+    public String[] getTutoriasPorMateriaModalidad(String[] tutorias, String modalidad) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(String tutoria: tutorias) {
+            if(getTutoriaPorCodigo(tutoria).getModalidad().toString().equals(modalidad)) {
+                auxiliar.add(tutoria);
+            }
+        }
+        return auxiliar.toArray(String[]::new);
+    }
+    public String[] getAulasDisponibles() {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(Aula aulaActual: aulas) {
+            if(!aulaActual.isReservada()) {
+                auxiliar.add(aulaActual.getId());
+            }
+        }
+        return auxiliar.toArray(String[]::new);
+    }
+    public String [] getTutoresPorMateriaModalidad(String[] nombres, ArrayList<String> correos, String materia, String modalidad) {
+        ArrayList<String> auxiliar = new ArrayList<>();
+        for(int i = 0; i < nombres.length; i++) {
+            if(obtenerTutor(correos.get(i)).getMateriaTutoría().equals(materia) && obtenerTutor(correos.get(i)).getModalidad().equals(TModalidad.valueOf(modalidad))) {
+                auxiliar.add(nombres[i]);
+            }
+        }
+        return auxiliar.toArray(String[]::new);
+    }
     public int verificarCrendecials(String pUsuario, String pContraseña){
         for (int i = 0; i < estudiantes.size(); i++) {
             if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {

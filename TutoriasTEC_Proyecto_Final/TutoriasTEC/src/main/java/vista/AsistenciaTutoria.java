@@ -86,7 +86,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
-            limpiarCampos();
+            //limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaAsistenciaTutoria(false);
         } else if(opcionesTutoria.equals(source)){

@@ -23,9 +23,6 @@ public class Aula {
         this.id = id;
         this.reservada = reservada;
     }
-
-
-
     public Calendar getDesde() {
         return Desde;
     }

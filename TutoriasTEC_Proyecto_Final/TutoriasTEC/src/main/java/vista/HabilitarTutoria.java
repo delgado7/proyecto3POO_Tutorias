@@ -39,7 +39,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     static String[] cantidadSesiones = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15" };
     static String[] modalidadesLista = {"", "Virtual", "Presencial" };
     static String[] opcionesEscuelaLista = main.control.escuelasDefault;
-    static String[] opcionesAulaLista = main.control.getListaNombresAulas().toArray(String[]::new);
+    static String[] opcionesAulaLista = main.control.getAulasDisponibles();
     static String[] mensajeError = {"un tutor.", "una modalidad.", "una escuela.",
                                     "un aula.", "una materia."};
     HashMap<String, String[]> listaMaterias = new HashMap<>();
@@ -82,20 +82,20 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     public void setLocationAndSize() {
         mensajeTitulo.setBounds(50, 25, 150, 30);
         botonAtras.setBounds(430, 25, 100, 30);
-        tituloTutor.setBounds(50, 90, 100, 30);
-        opcionesTutor.setBounds(115, 90, 150, 30);
+        tituloCodigo.setBounds(50, 90, 100, 30);
+        codigoTutoria.setBounds(115, 90, 150, 30);
         tituloSesion.setBounds(300, 90, 100, 30);
         opcionesSesion.setBounds(380, 90, 150, 30);
-        tituloCodigo.setBounds(50, 130, 100, 30);
-        codigoTutoria.setBounds(115, 130, 150, 30);
+        tituloEscuela.setBounds(50, 130, 100, 30);
+        opcionesEscuela.setBounds(115, 130, 150, 30);
+        tituloMateria.setBounds(50, 170, 100, 30);
+        opcionesMateria.setBounds(115, 170, 150, 30);
+        tituloTutor.setBounds(50, 210, 100, 30);
+        opcionesTutor.setBounds(115, 210, 150, 30);
         tituloModalidad.setBounds(300, 130, 100, 30);
         opcionesModalidad.setBounds(380, 130, 150, 30);
-        tituloEscuela.setBounds(50, 170, 100, 30);
-        opcionesEscuela.setBounds(115, 170, 150, 30);
         tituloAula.setBounds(300, 170, 100, 30);
         opcionesAula.setBounds(380, 170, 150, 30);
-        tituloMateria.setBounds(50, 210, 100, 30);
-        opcionesMateria.setBounds(115, 210, 150, 30);
         tituloHorario.setBounds(300, 210, 100, 30);
         opcionesHorario.setBounds(380, 210, 150, 30);
         botonConfirmar.setBounds(225, 280, 150, 30);
@@ -122,6 +122,8 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         container.add(opcionesHorario);
         container.add(botonConfirmar);
         opcionesMateria.setEnabled(false);
+        opcionesTutor.setEnabled(false);
+        opcionesModalidad.setEnabled(false);
     }
     
     public void addComponentsValues() {
@@ -141,7 +143,6 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     }
     
     public void limpiarCampos() {
-        opcionesTutor.setSelectedIndex(0);
         opcionesSesion.setValue("1");
         codigoTutoria.setText("");
         opcionesModalidad.setSelectedIndex(0);
@@ -150,6 +151,8 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         opcionesHorario.setText("");
         if(opcionesMateria.isEnabled()) {
             opcionesMateria.setSelectedIndex(0);
+        } else if(opcionesTutor.isEnabled()) {
+            opcionesTutor.setSelectedIndex(0);
         }
     }
     
@@ -177,6 +180,10 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         } else if(opcionesModalidad.equals(source)){
             JComboBox modalidad = (JComboBox) e.getSource();
             valorComponentes.set(1, (String) modalidad.getSelectedItem());
+            opcionesTutor.setEnabled(true);
+            opcionesTutor.removeAllItems();
+            DefaultComboBoxModel modelo = new DefaultComboBoxModel(main.control.getTutoresPorMateriaModalidad(opcionesTutorLista, correosTutores, (String) opcionesMateria.getSelectedItem(), (String) opcionesModalidad.getSelectedItem()));
+            opcionesTutor.setModel(modelo);
         } else if(opcionesEscuela.equals(source)){
             JComboBox escuela = (JComboBox) e.getSource();
             String nombreEscuela = (String) escuela.getSelectedItem();
@@ -189,6 +196,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel(escuelaMaterias.get(nombreEscuela));
                 opcionesMateria.setModel(modelo);
             }
+            opcionesTutor.removeAllItems();
         } else if(opcionesAula.equals(source)){
             JComboBox aula = (JComboBox) e.getSource();
             valorComponentes.set(3, (String) aula.getSelectedItem());
@@ -196,6 +204,8 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         } else if(opcionesMateria.equals(source)){
             JComboBox materia = (JComboBox) e.getSource();
             valorComponentes.set(4, (String) materia.getSelectedItem());
+            opcionesTutor.removeAllItems();
+            opcionesModalidad.setEnabled(true);
         } else if (botonConfirmar.equals(source)) {
             if(codigoTutoria.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");

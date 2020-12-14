@@ -76,8 +76,13 @@ public class HabilitarAula extends javax.swing.JFrame {
 
         jLabel4.setText("Fin");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(main.control.aulasDefault));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(main.control.getAulasDisponibles()));
         jComboBox1.setPreferredSize(new java.awt.Dimension(150, 30));
+        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox1ActionPerformed(evt);
+            }
+        });
 
         jDateChooser1.setPreferredSize(new java.awt.Dimension(150, 30));
 
@@ -195,6 +200,10 @@ public class HabilitarAula extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "El aula se ha habilitado con éxito.");
         }
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox1ActionPerformed
 
     /**
      * @param args the command line arguments
