@@ -34,6 +34,14 @@ public class Utilitaria {
         return fechaCalendar;
     }
     
+    public static Calendar obtenerFechaCalendar(String fechaString) {
+        String[] datos = fechaString.split("/");
+        Calendar fechaCalendar = Calendar.getInstance();
+        fechaCalendar.set(Integer.parseInt(datos[2]), 
+                (Integer.parseInt(datos[1]))-1, Integer.parseInt(datos[0]));
+        return fechaCalendar;
+    }
+    
     /**
      * Este método convierte un tipo de dato Calendar a una fecha 
      * en formato string "día/mes/año"

@@ -72,4 +72,11 @@ public class Estudiante extends Persona{
     public void MatricularEn(String matriculadoEn) {
         this.matriculadoEn = matriculadoEn;
     }
+
+    @Override
+    public String toString() {
+        return "Estudiante{" + "carn\u00e9=" + carné + ", correoEstudiantil=" + correoEstudiantil + ", contrase\u00f1a=" + contraseña + ", isActive=" + isActive + ", matriculadoEn=" + matriculadoEn + '}';
+    }
+    
+    
 }

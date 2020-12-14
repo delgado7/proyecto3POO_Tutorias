@@ -737,6 +737,8 @@ public class Controlador {
         return "";
     }
     public void prepararDiccionarios() {
+        escuelaMaterias.clear();
+        materiaTutorias.clear();
         escuelaMaterias.put("Computación", materiasComputacionDefault);
         escuelaMaterias.put("Matemática", materiasMatematicasDefault);
         for(String materia: materiasDefault) {
@@ -761,6 +763,7 @@ public class Controlador {
     public String getPorcentajeAsistencia(String codigo) {
         return Double.toString(getTutoriaPorCodigo(codigo).getPorcentajeAsistencia());
     }
+    
     public int verificarCrendecials(String pUsuario, String pContraseña){
         for (int i = 0; i < estudiantes.size(); i++) {
             if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {

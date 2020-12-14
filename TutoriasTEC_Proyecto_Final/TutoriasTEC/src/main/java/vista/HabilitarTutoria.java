@@ -5,11 +5,13 @@
  */
 package vista;
 
+import Modelo.TModalidad;
 import java.awt.Container;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -19,6 +21,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
+import Controlador.Utilitaria;
+import Modelo.Estudiante;
 
 /**
  *
@@ -196,10 +200,20 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
             if(codigoTutoria.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");
             } else if(!campoVacio(e)) {
-                JOptionPane.showMessageDialog(this, "Tutoría guardada.");
-                limpiarCampos();
-                Inicio.VentanaInicioTutor(true);
-                Inicio.VentanaHabilitarTutoria(false);
+                ArrayList<Estudiante> estudiantes = new ArrayList<>();
+                if(main.control.registrarTutoríaEnBase(main.control.obtenerTutor(correosTutores.get(opcionesTutor.getSelectedIndex())),
+                                          codigoTutoria.getText(), (String) opcionesEscuela.getSelectedItem(),
+                                          (String) opcionesMateria.getSelectedItem(), TModalidad.valueOf((String) opcionesModalidad.getSelectedItem()),
+                                          (String) opcionesAula.getSelectedItem(), opcionesHorario.getText(), 25, Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[0]),
+                                          Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, false, estudiantes, 0, false)) {
+                    JOptionPane.showMessageDialog(this, "Tutoría guardada.");
+                    main.control.prepararDiccionarios();
+                    limpiarCampos();
+                    Inicio.VentanaInicioTutor(true);
+                    Inicio.VentanaHabilitarTutoria(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "Error al guardar tutoría");
+                }
             }
         }
     }

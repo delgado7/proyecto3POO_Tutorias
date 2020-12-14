@@ -18,7 +18,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    public static String correoActual = "gmail";
+    public static String correoActual = "jhidalgo@gmail.com";
     
     static String[] opcionesTutoriaLista = main.control.getListaCodigos(correoActual).toArray(String[]::new);
     HashMap<String, String[]> listaSesiones = new HashMap<>();

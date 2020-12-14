@@ -37,9 +37,10 @@ public class Tutor extends Estudiante{
     public void setActive(boolean Active) {
         this.Active = Active;
     }
-    
-    
 
-    
+    @Override
+    public String toString() {
+        return "Tutor{" + super.toString() + "modalidad=" + modalidad + ", materiaTutor\u00eda=" + materiaTutoría + ", Active=" + Active + '}';
+    }
     
 }
