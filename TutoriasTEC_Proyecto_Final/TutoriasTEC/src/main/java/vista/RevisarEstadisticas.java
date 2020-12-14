@@ -280,9 +280,11 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
         // TODO add your handling code here:
+        if(jComboBox3.getSelectedItem() != null && !jComboBox3.getSelectedItem().equals("")) {
         String [] tutorias = main.control.getTutoriasPorMateriaModalidad(materiaTutorias.get(jComboBox2.getSelectedItem()),
                                                                         (String) jComboBox3.getSelectedItem());
         jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(tutorias));
+        }
     }//GEN-LAST:event_jComboBox3ActionPerformed
 
     private void jComboBox2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox2ActionPerformed
@@ -292,8 +294,10 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
-        jComboBox4.removeAllItems();
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(escuelaMaterias.get(jComboBox1.getSelectedItem())));
+        if(jComboBox1.getSelectedItem() != null && !jComboBox1.getSelectedItem().equals("")) {
+            jComboBox4.removeAllItems();
+            jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(escuelaMaterias.get(jComboBox1.getSelectedItem())));
+        }
     }//GEN-LAST:event_jComboBox1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed

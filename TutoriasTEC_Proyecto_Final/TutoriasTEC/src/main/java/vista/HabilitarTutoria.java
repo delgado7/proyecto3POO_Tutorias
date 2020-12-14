@@ -158,7 +158,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     
     public boolean campoVacio(ActionEvent e) {
         for(int i = 0; i < 5; i++) {
-            if(valorComponentes.get(i).equals("")) {
+            if(valorComponentes.get(i) == null || valorComponentes.get(i).equals("")) {
                 String mensaje = "Debe ingresar " + mensajeError[i];
                 JOptionPane.showMessageDialog(this, mensaje);
                 return true;
@@ -171,7 +171,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
-            limpiarCampos();
+            //limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaHabilitarTutoria(false);
         } else if(opcionesTutor.equals(source)){
@@ -179,33 +179,44 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
             valorComponentes.set(0, (String) tutor.getSelectedItem());
         } else if(opcionesModalidad.equals(source)){
             JComboBox modalidad = (JComboBox) e.getSource();
-            valorComponentes.set(1, (String) modalidad.getSelectedItem());
-            opcionesTutor.setEnabled(true);
-            opcionesTutor.removeAllItems();
-            DefaultComboBoxModel modelo = new DefaultComboBoxModel(main.control.getTutoresPorMateriaModalidad(opcionesTutorLista, correosTutores, (String) opcionesMateria.getSelectedItem(), (String) opcionesModalidad.getSelectedItem()));
-            opcionesTutor.setModel(modelo);
+            String nombreModalidad = (String) modalidad.getSelectedItem();
+            valorComponentes.set(1, nombreModalidad);
+            if(nombreModalidad == null || nombreModalidad.equals("")) {
+                opcionesTutor.setEnabled(false);
+            } else {
+                opcionesTutor.removeAllItems();
+                opcionesTutor.setEnabled(true);
+                DefaultComboBoxModel modelo = new DefaultComboBoxModel(main.control.getTutoresPorMateriaModalidad(opcionesTutorLista, correosTutores, (String) opcionesMateria.getSelectedItem(), (String) opcionesModalidad.getSelectedItem()));
+                opcionesTutor.setModel(modelo);
+            }
         } else if(opcionesEscuela.equals(source)){
             JComboBox escuela = (JComboBox) e.getSource();
             String nombreEscuela = (String) escuela.getSelectedItem();
             valorComponentes.set(2, nombreEscuela);
             if(nombreEscuela.equals("")) {
                 opcionesMateria.setEnabled(false);
+                opcionesModalidad.setEnabled(false);
+                opcionesTutor.setEnabled(false);
             } else {
                 opcionesMateria.setEnabled(true);
                 opcionesMateria.removeAllItems();
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel(escuelaMaterias.get(nombreEscuela));
                 opcionesMateria.setModel(modelo);
             }
-            opcionesTutor.removeAllItems();
         } else if(opcionesAula.equals(source)){
             JComboBox aula = (JComboBox) e.getSource();
             valorComponentes.set(3, (String) aula.getSelectedItem());
             opcionesHorario.setText(main.control.getHorarioAula((String) aula.getSelectedItem()));
         } else if(opcionesMateria.equals(source)){
             JComboBox materia = (JComboBox) e.getSource();
-            valorComponentes.set(4, (String) materia.getSelectedItem());
-            opcionesTutor.removeAllItems();
-            opcionesModalidad.setEnabled(true);
+            String nombreMateria = (String) materia.getSelectedItem();
+            valorComponentes.set(4, nombreMateria);
+            if(nombreMateria == null || nombreMateria.equals("")) {
+                opcionesModalidad.setEnabled(false);
+                opcionesTutor.setEnabled(false);
+            } else {
+                opcionesModalidad.setEnabled(true);
+            }
         } else if (botonConfirmar.equals(source)) {
             if(codigoTutoria.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");
@@ -218,7 +229,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
                                           Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, false, estudiantes, 0, false)) {
                     JOptionPane.showMessageDialog(this, "Tutoría guardada.");
                     main.control.prepararDiccionarios();
-                    limpiarCampos();
+                    //limpiarCampos();
                     Inicio.VentanaInicioTutor(true);
                     Inicio.VentanaHabilitarTutoria(false);
                 } else {

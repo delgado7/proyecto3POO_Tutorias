@@ -86,19 +86,23 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
             Inicio.VentanaAsistenciaLista(false);
         }else if (botonConfirmar.equals(source)) {
             String carne;
-            for(int i = 0; i < checkBoxList.size(); i++) {
-                JCheckBox estudiante = checkBoxList.get(i);
-                carne = estudiante.getText().split("-")[0];
-                if(estudiante.isSelected()) {
-                    main.control.PasarLista(tutoria.getText(), carne, true);
-                } else if(estudiante.equals(source) && !estudiante.isSelected()) {
-                    main.control.PasarLista(tutoria.getText(), carne, false);
+            if(checkBoxList.size() > 0) {
+                for(int i = 0; i < checkBoxList.size(); i++) {
+                    JCheckBox estudiante = checkBoxList.get(i);
+                    carne = estudiante.getText().split("-")[0];
+                    if(estudiante.isSelected()) {
+                        main.control.PasarLista(tutoria.getText(), carne, true);
+                    } else if(estudiante.equals(source) && !estudiante.isSelected()) {
+                        main.control.PasarLista(tutoria.getText(), carne, false);
+                    }
                 }
+                JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
+                limpiarCampos();
+                Inicio.VentanaInicioTutor(true);
+                Inicio.VentanaAsistenciaLista(false);
+            } else {
+                JOptionPane.showMessageDialog(this, "Lista de asistencia vacía.");
             }
-            JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
-            limpiarCampos();
-            Inicio.VentanaInicioTutor(true);
-            Inicio.VentanaAsistenciaLista(false);
         }
     }
 }

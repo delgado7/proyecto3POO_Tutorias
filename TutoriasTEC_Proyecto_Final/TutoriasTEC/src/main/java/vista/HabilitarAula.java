@@ -166,7 +166,9 @@ public class HabilitarAula extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        jComboBox1.setSelectedIndex(0);
+        if(jComboBox1.getSelectedItem() != null && !jComboBox1.getSelectedItem().equals("")) {
+            jComboBox1.setSelectedIndex(0);
+        }
         jDateChooser1.setCalendar(null);
         jDateChooser2.setCalendar(null);
         Inicio.VentanaHabilitarAula(false);
