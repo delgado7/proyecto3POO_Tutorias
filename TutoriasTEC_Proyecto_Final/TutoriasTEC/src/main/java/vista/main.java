@@ -14,6 +14,7 @@ import static vista.Inicio.frameInicioAdmin;
 import static vista.Inicio.frameRegistrarTutor;
 import static vista.Inicio.frameRevisarEstadisticas;
 import static vista.Inicio.frameHabilitarAula;
+import static vista.Inicio.frameMenuPrincipal;
 import Controlador.*;
 
 /**
@@ -41,7 +42,8 @@ public class main {
         frameRegistrarTutor = new RegistrarTutor();
         frameRevisarEstadisticas = new RevisarEstadisticas();
         frameHabilitarAula = new HabilitarAula();
+        frameMenuPrincipal = new MenuPrincipal();
         
-        Inicio.VentanaInicioAdmin(true);
+        Inicio.VentanaMenuPrincipal(true);
     }
 }
