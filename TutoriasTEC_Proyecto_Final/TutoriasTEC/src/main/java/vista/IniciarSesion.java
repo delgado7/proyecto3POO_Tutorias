@@ -78,6 +78,7 @@ public final class IniciarSesion extends JFrame implements ActionListener {
                         Inicio.VentanaIniciarSesion(false);
                     } else if(codigoUsuario == 2) {
                         AsistenciaTutoria.prepararTutorias();
+                        HabilitarTutoria.opcionesTutor.setText(main.control.getNombreTutorUsuario(TextFieldUsuario.getText()));
                         limpiarCampos();
                         Inicio.VentanaInicioTutor(true);
                         Inicio.VentanaIniciarSesion(false);

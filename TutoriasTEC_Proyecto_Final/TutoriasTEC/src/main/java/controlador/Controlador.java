@@ -595,6 +595,12 @@ public class Controlador {
                 return T;
         }return null;
     }
+    public Tutor getTutorCorreo(String correo){
+        for (Tutor T: tutores){
+            if(T.getCorreoEstudiantil().equals(correo))
+                return T;
+        }return null;
+    }
     public Tutoría getTutoría(String código){
         for (Tutoría T: tutorías){
             if(T.getCódigo().equals(código))
@@ -857,6 +863,9 @@ public class Controlador {
             }
         }
     }
+    public String getNombreTutorUsuario(String usuario) {
+        return getTutorCorreo(usuario+"@estudiantec.cr").getNombre();
+    }
     public int verificarCrendecials(String pUsuario, String pContraseña){
         for (int i = 0; i < estudiantes.size(); i++) {
             if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {
@@ -884,6 +893,10 @@ public class Controlador {
         Pattern patron = Pattern.compile("^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)"
                        + "*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$");
         Matcher comparador = patron.matcher(correo);
-        return comparador.find();
+        if(comparador.find()) {
+            return correo.split("@")[1].equals("estudiantec.cr");
+        } else {
+            return false;
+        }
     }
 }

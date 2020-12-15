@@ -302,14 +302,7 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        jLabel12.setVisible(false);
-        jLabel10.setVisible(false);
-        jLabel11.setVisible(false);
-        jLabel6.setVisible(false);
-        jLabel7.setVisible(false);
-        jLabel8.setVisible(false);
-        Inicio.VentanaRegistrarTutor(false);
-        Inicio.VentanaInicioAdmin(true);
+        limpiarCampos();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -350,6 +343,21 @@ public class RevisarEstadisticas extends javax.swing.JFrame {
                 new RevisarEstadisticas().setVisible(true);
             }
         });
+    }
+    
+    public void limpiarCampos() {
+        jLabel12.setVisible(false);
+        jLabel10.setVisible(false);
+        jLabel11.setVisible(false);
+        jLabel6.setVisible(false);
+        jLabel7.setVisible(false);
+        jLabel8.setVisible(false);
+        jComboBox4.removeAllItems();
+        jComboBox3.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
+        jComboBox1.setSelectedIndex(0);
+        Inicio.VentanaRegistrarTutor(false);
+        Inicio.VentanaInicioAdmin(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

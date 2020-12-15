@@ -65,6 +65,7 @@ public final class InicioTutor extends JFrame implements ActionListener {
             Inicio.VentanaAsistenciaTutoria(true);
             Inicio.VentanaInicioTutor(false);
         } else if (botonTutoria.equals(source)) {
+            HabilitarTutoria.prepararAulasDisponibles();
             Inicio.VentanaHabilitarTutoria(true);
             Inicio.VentanaInicioTutor(false);
         }

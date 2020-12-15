@@ -98,7 +98,6 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
     @Override
     public void actionPerformed(ActionEvent e)
     {
-
         if (e.getSource().equals(botonAtras)) {
             limpiarCampos();
             Inicio.VentanaRegistrarTutor(false);
@@ -122,6 +121,8 @@ public final class RegistrarTutor extends JFrame implements ActionListener{
                     ComboBoxTutorias.setSelectedIndex(0);
                     limpiarCampos();
                     JOptionPane.showMessageDialog(this, "El tutor se ha agregado con éxito.");
+                    Inicio.VentanaRegistrarTutor(false);
+                    Inicio.VentanaInicioAdmin(true);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error al registrar un tutor.");
                 }

@@ -387,21 +387,7 @@ public class ConsultarTutorias extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-        tituloTutor.setVisible(false);
-        tituloInicio.setVisible(false);
-        tituloFin.setVisible(false);
-        tituloAula.setVisible(false);
-        tituloModalidad.setVisible(false);
-        tituloCupo.setVisible(false);
-        labelTutor.setVisible(false);
-        labelInicio.setVisible(false);
-        labelFin.setVisible(false);
-        labelAula.setVisible(false);
-        labelModalidad.setVisible(false);
-        labelCupo.setVisible(false);
-        botonMatricular.setVisible(false);
-        Inicio.VentanaConsultarTutorias(false);
-        Inicio.VentanaInicioEstudiante(true);
+        limpiarCampos();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jComboBox4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox4ActionPerformed
@@ -412,11 +398,12 @@ public class ConsultarTutorias extends javax.swing.JFrame {
         // TODO add your handling code here:
         String correo = main.control.getUsuarioActivo();
         HashMap<String, String> matricularEn = new HashMap<>();
-        if(!main.control.isEstudianteMatriculado(correo) && !main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).isEnCursoActualmente()) {
+        if(!main.control.isEstudianteMatriculado(correo)) {
             if(main.control.agregarEstudianteATutoría((String)jComboBox4.getSelectedItem(), main.control.obtenerEstudianteCorreo(correo))) {
                 matricularEn.put("matriculadoEn", (String)jComboBox4.getSelectedItem());
                 main.control.editarEstudianteJSON(main.control.getCarneConCorreo(correo), matricularEn);
                 JOptionPane.showMessageDialog(this, "Estudiante matriculado exitosamente.");
+                limpiarCampos();
                 Inicio.VentanaConsultarTutorias(false);
                 Inicio.VentanaInicioEstudiante(true);
             } else {
@@ -424,6 +411,7 @@ public class ConsultarTutorias extends javax.swing.JFrame {
             }
         } else {
             JOptionPane.showMessageDialog(this, "El estudiante ya está matriculado en una tutoría.");
+            limpiarCampos();
             Inicio.VentanaConsultarTutorias(false);
             Inicio.VentanaInicioEstudiante(true);
         }
@@ -463,6 +451,28 @@ public class ConsultarTutorias extends javax.swing.JFrame {
                 new ConsultarTutorias().setVisible(true);
             }
         });
+    }
+    
+    public void limpiarCampos() {
+        tituloTutor.setVisible(false);
+        tituloInicio.setVisible(false);
+        tituloFin.setVisible(false);
+        tituloAula.setVisible(false);
+        tituloModalidad.setVisible(false);
+        tituloCupo.setVisible(false);
+        labelTutor.setVisible(false);
+        labelInicio.setVisible(false);
+        labelFin.setVisible(false);
+        labelAula.setVisible(false);
+        labelModalidad.setVisible(false);
+        labelCupo.setVisible(false);
+        botonMatricular.setVisible(false);
+        jComboBox4.removeAllItems();
+        jComboBox3.setSelectedIndex(0);
+        jComboBox2.setSelectedIndex(0);
+        jComboBox1.setSelectedIndex(0);
+        Inicio.VentanaConsultarTutorias(false);
+        Inicio.VentanaInicioEstudiante(true);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

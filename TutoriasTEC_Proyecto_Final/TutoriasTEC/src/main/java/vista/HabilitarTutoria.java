@@ -23,6 +23,8 @@ import javax.swing.JTextField;
 import javax.swing.SpinnerListModel;
 import Controlador.Utilitaria;
 import Modelo.Estudiante;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  *
@@ -39,8 +41,7 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     static String[] modalidadesLista = {"", "Virtual", "Presencial" };
     static String[] opcionesEscuelaLista = main.control.escuelasDefault;
     static String[] opcionesAulaLista = main.control.getAulasDisponibles();
-    static String[] mensajeError = {"un tutor.", "una modalidad.", "una escuela.",
-                                    "un aula.", "una materia."};
+    static String[] mensajeError = {"una modalidad.", "una escuela.", "un aula.", "una materia."};
     HashMap<String, String[]> listaMaterias = new HashMap<>();
     ArrayList<String> valorComponentes = new ArrayList<>();
     HashMap<String, String[]> escuelaMaterias = main.control.escuelaMaterias;
@@ -55,13 +56,13 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     JLabel tituloAula = new JLabel("Aula");
     JLabel tituloMateria = new JLabel("Materia");
     JLabel tituloHorario = new JLabel("Horario");
-    JComboBox<String> opcionesTutor = new JComboBox<>(opcionesTutorLista);
+    static JLabel opcionesTutor = new JLabel();
     SpinnerListModel opcionesCantidadSesion = new SpinnerListModel(cantidadSesiones);
     JSpinner opcionesSesion = new JSpinner(opcionesCantidadSesion);
     JTextField codigoTutoria = new JTextField();
     JComboBox<String> opcionesModalidad = new JComboBox<>(modalidadesLista);
     JComboBox<String> opcionesEscuela = new JComboBox<>(opcionesEscuelaLista);
-    JComboBox<String> opcionesAula = new JComboBox<>(opcionesAulaLista);
+    static JComboBox<String> opcionesAula = new JComboBox<>(opcionesAulaLista);
     JComboBox<String> opcionesMateria = new JComboBox<>();
     JLabel opcionesHorario = new JLabel("");
     JButton botonConfirmar = new JButton("Confirmar");
@@ -120,8 +121,8 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         container.add(tituloHorario);
         container.add(opcionesHorario);
         container.add(botonConfirmar);
+        opcionesTutor.setVisible(false);
         opcionesMateria.setEnabled(false);
-        opcionesTutor.setEnabled(false);
         opcionesModalidad.setEnabled(false);
     }
     
@@ -134,7 +135,6 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     public void addActionEvent() {
         botonAtras.addActionListener(this);
         botonConfirmar.addActionListener(this);
-        opcionesTutor.addActionListener(this);
         opcionesModalidad.addActionListener(this);
         opcionesEscuela.addActionListener(this);
         opcionesAula.addActionListener(this);
@@ -144,19 +144,14 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
     public void limpiarCampos() {
         opcionesSesion.setValue("1");
         codigoTutoria.setText("");
-        opcionesModalidad.setSelectedIndex(0);
+        opcionesModalidad.setEnabled(false);
         opcionesEscuela.setSelectedIndex(0);
-        opcionesAula.setSelectedIndex(0);
         opcionesHorario.setText("");
-        if(opcionesMateria.isEnabled()) {
-            opcionesMateria.setSelectedIndex(0);
-        } else if(opcionesTutor.isEnabled()) {
-            opcionesTutor.setSelectedIndex(0);
-        }
+        opcionesMateria.setEnabled(false);
     }
     
     public boolean campoVacio(ActionEvent e) {
-        for(int i = 0; i < 5; i++) {
+        for(int i = 0; i < mensajeError.length; i++) {
             if(valorComponentes.get(i) == null || valorComponentes.get(i).equals("")) {
                 String mensaje = "Debe ingresar " + mensajeError[i];
                 JOptionPane.showMessageDialog(this, mensaje);
@@ -166,74 +161,82 @@ public final class HabilitarTutoria extends JFrame implements ActionListener {
         return false;
     }
     
+    public static void prepararAulasDisponibles() {
+        opcionesAula.removeAllItems();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(main.control.getAulasDisponibles());
+        opcionesAula.setModel(modelo);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonAtras.equals(source)) {
-            //limpiarCampos();
+            limpiarCampos();
             Inicio.VentanaInicioTutor(true);
             Inicio.VentanaHabilitarTutoria(false);
-        } else if(opcionesTutor.equals(source)){
-            JComboBox tutor = (JComboBox) e.getSource();
-            valorComponentes.set(0, (String) tutor.getSelectedItem());
         } else if(opcionesModalidad.equals(source)){
             JComboBox modalidad = (JComboBox) e.getSource();
             String nombreModalidad = (String) modalidad.getSelectedItem();
-            valorComponentes.set(1, nombreModalidad);
+            valorComponentes.set(0, nombreModalidad);
             if(nombreModalidad == null || nombreModalidad.equals("")) {
-                opcionesTutor.setEnabled(false);
+                opcionesTutor.setVisible(false);
             } else {
-                opcionesTutor.removeAllItems();
-                opcionesTutor.setEnabled(true);
-                DefaultComboBoxModel modelo = new DefaultComboBoxModel(main.control.getTutoresPorMateriaModalidad(opcionesTutorLista, correosTutores, (String) opcionesMateria.getSelectedItem(), (String) opcionesModalidad.getSelectedItem()));
-                opcionesTutor.setModel(modelo);
+                List<String> tutores = Arrays.asList(main.control.getTutoresPorMateriaModalidad(opcionesTutorLista, 
+                                                        correosTutores, (String) opcionesMateria.getSelectedItem(), 
+                                                        (String) opcionesModalidad.getSelectedItem()));
+                if(tutores == null || !tutores.contains(opcionesTutor.getText())) {
+                    opcionesTutor.setVisible(false);
+                } else {
+                    opcionesTutor.setVisible(true);
+                }
             }
         } else if(opcionesEscuela.equals(source)){
             JComboBox escuela = (JComboBox) e.getSource();
             String nombreEscuela = (String) escuela.getSelectedItem();
-            valorComponentes.set(2, nombreEscuela);
+            valorComponentes.set(1, nombreEscuela);
             if(nombreEscuela.equals("")) {
                 opcionesMateria.setEnabled(false);
                 opcionesModalidad.setEnabled(false);
-                opcionesTutor.setEnabled(false);
             } else {
                 opcionesMateria.setEnabled(true);
                 opcionesMateria.removeAllItems();
                 DefaultComboBoxModel modelo = new DefaultComboBoxModel(escuelaMaterias.get(nombreEscuela));
                 opcionesMateria.setModel(modelo);
             }
+            opcionesTutor.setVisible(false);
         } else if(opcionesAula.equals(source)){
             JComboBox aula = (JComboBox) e.getSource();
-            valorComponentes.set(3, (String) aula.getSelectedItem());
+            valorComponentes.set(2, (String) aula.getSelectedItem());
             opcionesHorario.setText(main.control.getHorarioAula((String) aula.getSelectedItem()));
         } else if(opcionesMateria.equals(source)){
             JComboBox materia = (JComboBox) e.getSource();
             String nombreMateria = (String) materia.getSelectedItem();
-            valorComponentes.set(4, nombreMateria);
+            valorComponentes.set(3, nombreMateria);
             if(nombreMateria == null || nombreMateria.equals("")) {
                 opcionesModalidad.setEnabled(false);
-                opcionesTutor.setEnabled(false);
             } else {
                 opcionesModalidad.setEnabled(true);
             }
+            opcionesTutor.setVisible(false);
         } else if (botonConfirmar.equals(source)) {
             if(codigoTutoria.getText().equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar un código.");
-            } else if(!campoVacio(e)) {
+            } else if(!campoVacio(e) && opcionesTutor.isVisible()) {
                 ArrayList<Estudiante> estudiantes = new ArrayList<>();
-                if(main.control.registrarTutoríaEnBase(main.control.obtenerTutor(correosTutores.get(opcionesTutor.getSelectedIndex())),
-                                          codigoTutoria.getText(), (String) opcionesEscuela.getSelectedItem(),
-                                          (String) opcionesMateria.getSelectedItem(), TModalidad.valueOf((String) opcionesModalidad.getSelectedItem()),
-                                          (String) opcionesAula.getSelectedItem(), opcionesHorario.getText(), 25, Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[0]),
-                                          Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, false, estudiantes, 0, false)) {
+                if(main.control.registrarTutoríaEnBase(main.control.getTutorCorreo(main.control.getUsuarioActivo()), codigoTutoria.getText(), (String) opcionesEscuela.getSelectedItem(),
+                                           (String) opcionesMateria.getSelectedItem(), TModalidad.valueOf((String) opcionesModalidad.getSelectedItem()),
+                                           (String) opcionesAula.getSelectedItem(), opcionesHorario.getText(), 25, Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[0]),
+                                           Utilitaria.obtenerFechaCalendar(opcionesHorario.getText().split(" - ")[1]), Integer.parseInt((String) opcionesSesion.getValue()), 0, false, estudiantes, 0, false)) {
                     JOptionPane.showMessageDialog(this, "Tutoría guardada.");
                     main.control.prepararDiccionarios();
-                    //limpiarCampos();
+                    limpiarCampos();
                     Inicio.VentanaInicioTutor(true);
                     Inicio.VentanaHabilitarTutoria(false);
                 } else {
                     JOptionPane.showMessageDialog(this, "Error al guardar tutoría");
                 }
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar tutoría");
             }
         }
     }
