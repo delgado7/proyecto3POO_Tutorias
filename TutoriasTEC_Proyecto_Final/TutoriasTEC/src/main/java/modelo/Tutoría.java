@@ -140,7 +140,11 @@ public class Tutoría extends Curso{
     }
     
     public int getAusencias(){
-        return EstudiantesMatriculados.size()*sesiones - asistenciaTotal;
+        if(sesiones != 0) {
+            return EstudiantesMatriculados.size()*sesiones - asistenciaTotal;
+        } else {
+            return 0;
+        }
     }
 
     public boolean isEnCursoActualmente() {
@@ -165,17 +169,17 @@ public class Tutoría extends Curso{
         for (int i = 0; i < EstudiantesMatriculados.size(); i++) {
             if(EstudiantesMatriculados.get(i).getCarné().equals("pCarné")){
                 asistenciaTotal++;
-                
+            }
         }
     }
+    
+    public int getCupoDisponible() {
+        return cupo - EstudiantesMatriculados.size();
     }
 
     @Override
     public String toString() {
         return "Tutor\u00eda{" + "escuela=" + escuela + ", materia=" + materia + ", modalidad=" + modalidad + ", c\u00f3digo=" + código + ", tutor=" + tutor + ", aula=" + aula + ", horario=" + horario + ", cupo=" + cupo + ", desde=" + desde + ", hasta=" + hasta + ", sesiones=" + sesiones + ", asistenciaTotal=" + asistenciaTotal + ", sesionesTotales=" + sesionesTotales + ", enCursoActualmente=" + enCursoActualmente + ", EstudiantesMatriculados=" + EstudiantesMatriculados + '}';
     }
-    
-    
-    
-    
+
 }

@@ -104,6 +104,7 @@ public final class AsistenciaLista extends JFrame implements ActionListener {
                 estadisticas.put("Sesiones", sesion.getText().split(" ")[1]);
                 main.control.confirmarAsistenciaTutoría(tutoria.getText(), estadisticas);
                 JOptionPane.showMessageDialog(this, "Lista de asistencia guardada.");
+                main.control.getTutoriaPorCodigo(tutoria.getText()).setEnCursoActualmente(true);
                 limpiarCampos();
                 Inicio.VentanaInicioTutor(true);
                 Inicio.VentanaAsistenciaLista(false);

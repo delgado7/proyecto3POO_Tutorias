@@ -340,7 +340,7 @@ public class ConsultarTutorias extends javax.swing.JFrame {
             Calendar inicio = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getDesde();
             Calendar fin = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getHasta();
             TModalidad modalidad = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getModalidad();
-            int cupo = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getCupo();
+            int cupo = main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getCupoDisponible();
             labelTutor.setText(main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).getTutor().getNombre());
             labelInicio.setText(Utilitaria.formatoFecha(inicio));
             labelFin.setText(Utilitaria.formatoFecha(fin));
@@ -410,9 +410,9 @@ public class ConsultarTutorias extends javax.swing.JFrame {
 
     private void botonMatricularActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonMatricularActionPerformed
         // TODO add your handling code here:
-        String correo = "joelmora@gmail.com";
+        String correo = main.control.getUsuarioActivo();
         HashMap<String, String> matricularEn = new HashMap<>();
-        if(!main.control.isEstudianteMatriculado(correo)) {
+        if(!main.control.isEstudianteMatriculado(correo) && !main.control.getTutoriaPorCodigo((String)jComboBox4.getSelectedItem()).isEnCursoActualmente()) {
             if(main.control.agregarEstudianteATutoría((String)jComboBox4.getSelectedItem(), main.control.obtenerEstudianteCorreo(correo))) {
                 matricularEn.put("matriculadoEn", (String)jComboBox4.getSelectedItem());
                 main.control.editarEstudianteJSON(main.control.getCarneConCorreo(correo), matricularEn);

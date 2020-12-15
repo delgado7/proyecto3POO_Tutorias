@@ -13,13 +13,13 @@ public class Tutor extends Estudiante{
     
     private final TModalidad modalidad;
     private final String materiaTutoría;
-    private boolean Active=false;
+    private boolean Active;
 
     public Tutor(TModalidad modalidad, String materiaTutoría, String correoEstudiantil, String contraseña, String nombre) {
         super(correoEstudiantil, contraseña, nombre);
         this.modalidad = modalidad;
         this.materiaTutoría = materiaTutoría;
-        
+        this.Active = false;
     }
 
     public TModalidad getModalidad() {
@@ -31,7 +31,7 @@ public class Tutor extends Estudiante{
     }
 
     public boolean isActive() {
-        return Active;
+        return this.Active;
     }
 
     public void setActive(boolean Active) {

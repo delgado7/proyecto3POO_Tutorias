@@ -14,7 +14,7 @@ public class Estudiante extends Persona{
     private String carné;
     private final String correoEstudiantil;
     private final String contraseña;
-    private boolean isActive = false;
+    private boolean isActive;
     private String matriculadoEn="";
 
     public Estudiante(String carné, String correoEstudinatil, String contraseña, String nombre, String profesión) {
@@ -22,12 +22,14 @@ public class Estudiante extends Persona{
         this.carné = carné;
         this.correoEstudiantil = correoEstudinatil;
         this.contraseña = contraseña;
+        this.isActive = false;
     }
     
     public Estudiante(String correoEstudinatil, String contraseña, String nombre) {
         super(nombre, "Estudiante");
         this.correoEstudiantil = correoEstudinatil;
         this.contraseña = contraseña;
+        this.isActive = false;
     }
 
     public Estudiante(String carné, String correoEstudiantil, String contraseña, String matriculadoEn, String nombre, String profesión) {
@@ -36,6 +38,7 @@ public class Estudiante extends Persona{
         this.correoEstudiantil = correoEstudiantil;
         this.contraseña = contraseña;
         this.matriculadoEn = matriculadoEn;
+        this.isActive = false;
     }
 
     public void setMatriculadoEn(String matriculadoEn) {
@@ -59,7 +62,7 @@ public class Estudiante extends Persona{
     }
 
     public boolean isActive() {
-        return isActive;
+        return this.isActive;
     }
 
     public void setActive(boolean isActive) {

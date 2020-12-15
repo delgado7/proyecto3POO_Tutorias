@@ -53,6 +53,7 @@ public final class InicioEstudiante extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonSalir.equals(source)) {
+            main.control.setUsuarioActivo(main.control.getUsuarioActivo(), false);
             Inicio.VentanaBienvenida(true);
             Inicio.VentanaInicioEstudiante(false);
         } else if (botonConsulta.equals(source)) {

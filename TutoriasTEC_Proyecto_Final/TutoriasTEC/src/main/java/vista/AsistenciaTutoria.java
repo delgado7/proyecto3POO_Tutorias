@@ -10,6 +10,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
+import java.util.Calendar;
+import Controlador.Utilitaria;
 /**
  *
  * @author mhidalgos0708
@@ -18,16 +20,13 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
     
     Container container = getContentPane();
     
-    public static String correoActual = "shidalgo@gmail.com";
-    
-    static String[] opcionesTutoriaLista = main.control.getListaCodigos(correoActual).toArray(String[]::new);
-    HashMap<String, String[]> listaSesiones = new HashMap<>();
+    static HashMap<String, String[]> listaSesiones = new HashMap<>();
     
     JLabel mensajeTitulo = new JLabel("Asistencia ");
     JButton botonAtras = new JButton("Atrás");
     JLabel tituloTutoria = new JLabel("Tutoría");
     JLabel tituloSesion = new JLabel("Sesión");
-    static JComboBox<String> opcionesTutoria = new JComboBox<>(opcionesTutoriaLista);
+    static JComboBox<String> opcionesTutoria = new JComboBox<>();
     JComboBox<String> opcionesSesion = new JComboBox<>();
     JButton botonAsistencia = new JButton("Revisar asistencia");
     static String nombreTutoria = "";
@@ -63,9 +62,6 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
         container.add(opcionesSesion);
         container.add(botonAsistencia);
         opcionesSesion.setEnabled(false);
-        for(String codigo: opcionesTutoriaLista) {
-            listaSesiones.put(codigo, main.control.getListaSesiones(codigo).toArray(String[]::new));
-        }
     }
 
     public void addActionEvent() {
@@ -82,6 +78,16 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
         }
     }
     
+    public static void prepararTutorias() {
+        String[] opcionesTutoriaLista = main.control.getListaCodigos(main.control.getUsuarioActivo()).toArray(String[]::new);
+        for(String codigo: opcionesTutoriaLista) {
+            listaSesiones.put(codigo, main.control.getListaSesiones(codigo).toArray(String[]::new));
+        }
+        opcionesTutoria.removeAllItems();
+        DefaultComboBoxModel modelo = new DefaultComboBoxModel(opcionesTutoriaLista);
+        opcionesTutoria.setModel(modelo);
+    }
+    
     @Override
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
@@ -91,7 +97,7 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
         } else if(opcionesTutoria.equals(source)){
             JComboBox tutoria = (JComboBox) e.getSource();
             nombreTutoria = (String) tutoria.getSelectedItem();
-            if(nombreTutoria.equals("")) {
+            if(nombreTutoria == null || nombreTutoria.equals("")) {
                 opcionesSesion.setEnabled(false);
             } else {
                 opcionesSesion.setEnabled(true);
@@ -106,21 +112,28 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
             if(nombreTutoria.equals("") || nombreSesion == null || nombreSesion.equals("")) {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una tutoría y una sesión.");
             } else {
-                String[] nombres = main.control.getListaEstudiantesTutoria(nombreTutoria).toArray(String[]::new);
-                if(nombres.length == 0) {
-                    AsistenciaLista.checkBoxList.clear();
-                    AsistenciaLista.lista.removeAll();
-                } else {
-                    for(int i = 0; i < nombres.length; i++) {
-                        JCheckBox estudiante = new JCheckBox(nombres[i]);
-                        AsistenciaLista.checkBoxList.add(estudiante);
-                        AsistenciaLista.lista.add(estudiante);
+                Calendar fechaActual = Calendar.getInstance();
+                fechaActual.set(Calendar.DAY_OF_YEAR, fechaActual.get(Calendar.DAY_OF_YEAR)-1);
+                Calendar desdeTutoria = main.control.getTutoriaPorCodigo(nombreTutoria).getDesde();
+                if(Utilitaria.formatoFecha(fechaActual).equals(Utilitaria.formatoFecha(desdeTutoria)) || desdeTutoria.before(fechaActual.getTime())) {
+                    String[] nombres = main.control.getListaEstudiantesTutoria(nombreTutoria).toArray(String[]::new);
+                    if(nombres.length == 0) {
+                        AsistenciaLista.checkBoxList.clear();
+                        AsistenciaLista.lista.removeAll();
+                    } else {
+                        for(int i = 0; i < nombres.length; i++) {
+                            JCheckBox estudiante = new JCheckBox(nombres[i]);
+                            AsistenciaLista.checkBoxList.add(estudiante);
+                            AsistenciaLista.lista.add(estudiante);
+                        }
                     }
+                    AsistenciaLista.sesion.setText(nombreSesion);
+                    AsistenciaLista.tutoria.setText(nombreTutoria);
+                    Inicio.VentanaAsistenciaLista(true);
+                    Inicio.VentanaAsistenciaTutoria(false);
+                } else {
+                    JOptionPane.showMessageDialog(this, "La fecha de hoy no coincide con la fecha de la tutoría.");
                 }
-                AsistenciaLista.sesion.setText(nombreSesion);
-                AsistenciaLista.tutoria.setText(nombreTutoria);
-                Inicio.VentanaAsistenciaLista(true);
-                Inicio.VentanaAsistenciaTutoria(false);
             }
         }
     }

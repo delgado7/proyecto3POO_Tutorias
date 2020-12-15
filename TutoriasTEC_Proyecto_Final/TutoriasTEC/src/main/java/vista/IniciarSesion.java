@@ -74,11 +74,10 @@ public final class IniciarSesion extends JFrame implements ActionListener {
                 if(codigoUsuario != -1) {
                     if(codigoUsuario == 1) {
                         limpiarCampos();
-                        //InicioEstudiante.usuario.setText(TextFieldUsuario);
                         Inicio.VentanaInicioEstudiante(true);
                         Inicio.VentanaIniciarSesion(false);
                     } else if(codigoUsuario == 2) {
-                        //InicioTutor.usuario.setText(TextFieldUsuario);
+                        AsistenciaTutoria.prepararTutorias();
                         limpiarCampos();
                         Inicio.VentanaInicioTutor(true);
                         Inicio.VentanaIniciarSesion(false);

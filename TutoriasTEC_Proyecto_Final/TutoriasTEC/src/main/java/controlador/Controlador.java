@@ -31,6 +31,7 @@ public class Controlador {
     public String [] materiasDefault = {"", "Fundamentos", "Intro Taller", "Discreta", "General"};
     public HashMap<String, String[]> escuelaMaterias = new HashMap<>();
     public HashMap<String, String[]> materiaTutorias = new HashMap<>();
+    public static String correoUsuario;
 
     public Controlador() {}
     
@@ -469,7 +470,7 @@ public class Controlador {
         }
     }
     public boolean registrarEstudianteEnBase(String carné, String correoEstudiantil, String contraseña, String matriculadoEn, String nombre, boolean lectura){
-        if(obtenerEstudiante(carné) == null && obtenerEstudianteCorreo(correoEstudiantil) == null) {
+        if(obtenerEstudiante(carné) == null && obtenerEstudianteCorreo(correoEstudiantil) == null && verificarCorreo(correoEstudiantil)) {
             Estudiante nuevoEstudiante = new Estudiante( carné,  correoEstudiantil,  contraseña,  matriculadoEn,  nombre,  "Estudiante");
             estudiantes.add(nuevoEstudiante);
             
@@ -559,7 +560,7 @@ public class Controlador {
         return null;
     }
     public boolean registrarTutorEnBase(TModalidad modalidad, String materiaTutoría, String correoEstudinatil, String contraseña, String nombre, boolean lectura){
-        if(obtenerTutor(correoEstudinatil) == null) {
+        if(obtenerTutor(correoEstudinatil) == null && verificarCorreo(correoEstudinatil)) {
             Tutor nuevoTutor = new Tutor(modalidad, materiaTutoría, correoEstudinatil, contraseña, nombre);
             tutores.add(nuevoTutor);
             if(!lectura) {
@@ -573,6 +574,8 @@ public class Controlador {
         if(obtenerTutoría(código) == null) {
             Tutoría nuevaTutoría = new Tutoría(tutor, código, escuela, materia, modalidad, aula, horario, cupo, desde, hasta, sesionesTotales, asistenciaTotal, enCursoActualmente, EstudiantesMatriculados, sesiones);
             tutorías.add(nuevaTutoría);
+            reservarAula(obtenerAula(aula), desde, hasta);
+            obtenerAula(aula).setReservada(true);
             if(!lectura) {
                 agregarInformacionJSON("Tutoría.json","Tutoría");
             }
@@ -625,14 +628,23 @@ public class Controlador {
             //editarEstudianteJSON( pCarné,  edicion);
         }
     }
-    public void habilitarAula(Aula A, Calendar Desde, Calendar Hasta){
+    public boolean habilitarAula(Aula A, Calendar Desde, Calendar Hasta){
         HashMap edicion= new HashMap();
         if (!A.isReservada()){
             edicion.put("Desde", Utilitaria.formatoFechaJSON(Desde));
             edicion.put("Hasta", Utilitaria.formatoFechaJSON(Hasta));
+            //edicion.put("Reservada", String.valueOf(true));
+            editarAulaJSON(A.getId(), edicion);
+            return true;
+        }
+        return false;
+    }
+    public void reservarAula(Aula A, Calendar Desde, Calendar Hasta){
+        HashMap edicion= new HashMap();
+        if (!A.isReservada()){
             edicion.put("Reservada", String.valueOf(true));
             editarAulaJSON(A.getId(), edicion);
-        }  
+        }
     }
     public void DeshabilitarAula(Aula A){
         HashMap edicion= new HashMap();
@@ -819,6 +831,32 @@ public class Controlador {
         }
         return "";
     }
+    public String getUsuarioActivo() {
+        for(Estudiante estudianteActual: estudiantes) {
+            if(estudianteActual.isActive()) {
+                return estudianteActual.getCorreoEstudiantil();
+            }
+        }
+        for(Tutor tutorActual: tutores) {
+            if(tutorActual.isActive()) {
+                return tutorActual.getCorreoEstudiantil();
+            }
+        }
+        return "";
+    }
+    public void setUsuarioActivo(String correo, boolean estado) {
+        this.correoUsuario = "Hola";
+        for(Estudiante estudianteActual: estudiantes) {
+            if(estudianteActual.getCorreoEstudiantil().equals(correo)) {
+                estudianteActual.setActive(estado);
+            }
+        }
+        for(Tutor tutorActual: tutores) {
+            if(tutorActual.getCorreoEstudiantil().equals(correo)) {
+                tutorActual.setActive(estado);
+            }
+        }
+    }
     public int verificarCrendecials(String pUsuario, String pContraseña){
         for (int i = 0; i < estudiantes.size(); i++) {
             if (pUsuario.equals(getUsername(estudiantes.get(i).getCorreoEstudiantil())) && pContraseña.equals(estudiantes.get(i).getContraseña())) {
@@ -826,7 +864,7 @@ public class Controlador {
                return 1;
             }
         }
-        for(int i=0; i< tutores.size(); i++){
+        for(int i=0; i < tutores.size(); i++){
             if (pUsuario.equals(getUsername(tutores.get(i).getCorreoEstudiantil())) && pContraseña.equals(tutores.get(i).getContraseña())) {
                tutores.get(i).setActive(true);
                return 2;

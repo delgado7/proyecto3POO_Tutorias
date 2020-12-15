@@ -57,9 +57,11 @@ public final class InicioTutor extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object source = e.getSource();
         if (botonSalir.equals(source)) {
+            main.control.setUsuarioActivo(main.control.getUsuarioActivo(), false);
             Inicio.VentanaBienvenida(true);
             Inicio.VentanaInicioTutor(false);
         } else if (botonAsistencia.equals(source)) {
+            AsistenciaTutoria.prepararTutorias();
             Inicio.VentanaAsistenciaTutoria(true);
             Inicio.VentanaInicioTutor(false);
         } else if (botonTutoria.equals(source)) {
