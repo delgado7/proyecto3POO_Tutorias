@@ -113,7 +113,6 @@ public final class AsistenciaTutoria extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(this, "Debe ingresar una tutoría y una sesión.");
             } else {
                 Calendar fechaActual = Calendar.getInstance();
-                fechaActual.set(Calendar.DAY_OF_YEAR, fechaActual.get(Calendar.DAY_OF_YEAR)-1);
                 Calendar desdeTutoria = main.control.getTutoriaPorCodigo(nombreTutoria).getDesde();
                 if(Utilitaria.formatoFecha(fechaActual).equals(Utilitaria.formatoFecha(desdeTutoria)) || desdeTutoria.before(fechaActual.getTime())) {
                     String[] nombres = main.control.getListaEstudiantesTutoria(nombreTutoria).toArray(String[]::new);
